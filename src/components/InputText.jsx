@@ -1,6 +1,14 @@
 import { PropTypes } from "prop-types";
 
-const InputText = ({ label, placeholder, idLabel, typeInput }) => {
+const InputText = ({
+  label,
+  placeholder,
+  idLabel,
+  typeInput,
+  name,
+  value,
+  onChange,
+}) => {
   return (
     <div>
       <label
@@ -14,6 +22,9 @@ const InputText = ({ label, placeholder, idLabel, typeInput }) => {
         id={idLabel}
         className="bg-stone-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         placeholder={placeholder}
+        name={name}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );
@@ -24,6 +35,9 @@ InputText.propTypes = {
   placeholder: PropTypes.string.isRequired,
   idLabel: PropTypes.string.isRequired,
   typeInput: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default InputText;
