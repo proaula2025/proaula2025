@@ -7,13 +7,14 @@ import ReactModal from "react-modal";
 import { PersonPage } from "./pages/PersonPage";
 import AdminPage from "./pages/AdminPage";
 import ProfilePage from "./pages/ProfilePage";
+import ChangeChats from "./pages/ChangeChats";
 
 ReactModal.setAppElement("#root");
 
 function App() {
   return (
     <BrowserRouter>
-      <AdminPage />
+      <RegisterAuth />
     </BrowserRouter>
   );
 }

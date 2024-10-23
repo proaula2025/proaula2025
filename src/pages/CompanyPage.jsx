@@ -47,9 +47,9 @@ const CompanyPage = () => {
               Here are the biggest enterprise technology acquisitions of 2021 so
               far, in reverse chronological order.
             </p>
-            <a
-              href="#"
+            <button
               className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              onClick={handleOpenModalProduct}
             >
               Donar ahora
               <svg
@@ -67,7 +67,7 @@ const CompanyPage = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </button>
           </div>
         </div>
       </div>
