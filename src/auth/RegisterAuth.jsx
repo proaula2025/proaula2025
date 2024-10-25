@@ -1,38 +1,27 @@
 import { Link } from "react-router-dom";
 import InputText from "../components/InputText";
 import { logoApp, registerImg } from "../images";
-import { useForm } from "./../hooks/useForm";
+import { useRegister } from "../hooks";
 
 const RegisterAuth = () => {
   const {
-    tipoUsuario,
-    nombre,
-    tipoDocumento,
-    numeroDocumento,
-    telefono,
-    correo,
     contrasena,
+    correo,
+    nombre,
+    numeroDocumento,
+    onGuardarUsuario,
     onInputChange,
-  } = useForm({
-    tipoUsuario: "",
-    nombre: "",
-    tipoDocumento: "",
-    numeroDocumento: "",
-    telefono: "",
-    correo: "",
-    contrasena: "",
-  });
+    telefono,
+    tipoDocumento,
+    tipoUsuario,
+  } = useRegister();
 
-  const onGuardarUsuario = (e) => {
-    e.preventDefault();
-    try {
-      console.log(
-        `Tipo de usuario: ${tipoUsuario}, Nombre: ${nombre}, Tipo de documento: ${tipoDocumento}, Numero de documento: ${numeroDocumento}, Telefono: ${telefono}, Correo: ${correo}, Contraseña: ${contrasena}`
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const nombreCampo =
+    tipoUsuario === "Persona natural"
+      ? "Nombre completo"
+      : tipoUsuario === "Fundacion"
+      ? "Nombre de la fundación"
+      : "Nombre de la empresa";
 
   return (
     <section className="p-4 before:bg-gradient-to-tr from-white to-[rgba(8,195,55,0.66)] before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen">
@@ -66,8 +55,8 @@ const RegisterAuth = () => {
               </select>
             </div>
             <InputText
-              label="Nombre"
-              placeholder="Nombre..."
+              label={nombreCampo}
+              placeholder={nombreCampo + "..."}
               idLabel="nombre"
               typeInput="text"
               name="nombre"
@@ -89,9 +78,9 @@ const RegisterAuth = () => {
                   value={tipoDocumento}
                   onChange={onInputChange}
                 >
-                  <option value="Persona natural">Selecciona</option>
-                  <option value="Fundacion">Cedula</option>
-                  <option value="Empresa">Nit</option>
+                  <option value="">Selecciona</option>
+                  <option value="Cedula">Cedula</option>
+                  <option value="Nit">Nit</option>
                 </select>
               </div>
               <InputText
@@ -141,7 +130,10 @@ const RegisterAuth = () => {
 
             <p className="text-end mt-4">
               ¿Ya tienes una cuenta?{" "}
-              <Link className="text-green-500 hover:underline" to="/">
+              <Link
+                className="text-green-500 hover:underline"
+                to="/auth/ingresar"
+              >
                 Ingresa
               </Link>
             </p>

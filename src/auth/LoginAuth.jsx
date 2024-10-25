@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { logoApp, registerImg } from "../images";
 import InputText from "./../components/InputText";
+import { useLogin } from "./../hooks";
 
 const LoginAuth = () => {
+  const { formState, onIniciarSesion, onInputChange } = useLogin();
+
   return (
     <section className="p-4 before:bg-gradient-to-tr from-white to-[rgba(8,195,55,0.66)] before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen flex items-center">
       <figure className="w-44 absolute top-4 left-4">
@@ -23,23 +26,50 @@ const LoginAuth = () => {
               >
                 Tipo de usuario
               </label>
-              <select className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <select
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                name="tipoUsuario"
+                value={formState.tipoUsuario}
+                onChange={onInputChange}
+              >
                 <option value="Persona natural">Persona natural</option>
                 <option value="Fundacion">Fundación</option>
                 <option value="Empresa">Empresa</option>
               </select>
             </div>
 
-            <InputText label="Correo" />
-            <InputText label="Contraseña" />
+            <InputText
+              label="Correo"
+              placeholder="Correo..."
+              idLabel="correo"
+              typeInput="email"
+              name="correo"
+              value={formState.correo}
+              onChange={onInputChange}
+            />
+            <InputText
+              label="Contraseña"
+              placeholder="Contraseña..."
+              idLabel="contrasena"
+              typeInput="password"
+              name="contrasena"
+              value={formState.contrasena}
+              onChange={onInputChange}
+            />
 
-            <button className="w-full mt-4 bg-green-500 hover:bg-green-700 duration-200 text-white font-semibold p-4 rounded">
+            <button
+              className="w-full mt-4 bg-green-500 hover:bg-green-700 duration-200 text-white font-semibold p-4 rounded"
+              onClick={onIniciarSesion}
+            >
               Iniciar sesión
             </button>
 
             <p className="text-end mt-4">
               ¿No tienes una cuenta?{" "}
-              <Link className="text-green-500 hover:underline" to="/">
+              <Link
+                className="text-green-500 hover:underline"
+                to="/auth/registrarse"
+              >
                 Registrate
               </Link>
             </p>

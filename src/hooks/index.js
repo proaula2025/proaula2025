@@ -1,3 +1,5 @@
 import { useForm } from "./useForm";
+import { useLogin } from "./useLogin";
+import { useRegister } from "./useRegister";
 
-export { useForm };
+export { useForm, useLogin, useRegister };

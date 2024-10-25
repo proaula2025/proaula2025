@@ -4,14 +4,29 @@ import TemplateMain from "./../Templates/TemplateMain";
 const ChangeChats = () => {
   return (
     <TemplateMain>
-      <section className="w-full grid grid-cols-10 gap-2 bg-[#ffffff47]">
-        <div className="col-span-2 p-3">
-          <input className="w-full" type="text" placeholder="Search" />
+      <section className="w-full h-[calc(100vh-7.5rem)] grid grid-cols-10 gap-2 bg-[#ffffff47] p-2 rounded-md">
+        <div className="col-span-3 p-3 border-r">
+          <input
+            className="w-full h-12 px-2 bg-stone-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
+            type="text"
+            placeholder="Search"
+          />
 
-          <div>
-            <div className="w-full flex gap-3">
+          <div className="w-full pt-4 grid gap-4">
+            <div className="w-full flex gap-3 p-3 bg-[#8d8d8d5c] rounded-md cursor-pointer">
               <img
-                className="w-16 h-2w-16 rounded-full"
+                className="w-16 h-2w-16 rounded-lg"
+                src={userPhoto}
+                alt="User photo"
+              />
+              <div>
+                <h3 className="text-lg font-semibold ">Usuario numero 1</h3>
+                <p className="text-sm cursor-pointer">Message</p>
+              </div>
+            </div>
+            <div className="w-full flex gap-3 p-3 bg-[#8d8d8d5c] rounded-md cursor-pointer">
+              <img
+                className="w-16 h-2w-16 rounded-lg"
                 src={userPhoto}
                 alt="User photo"
               />
@@ -23,7 +38,7 @@ const ChangeChats = () => {
           </div>
         </div>
 
-        <div className="col-span-8 grid grid-rows-[0fr,1fr,0fr] gap-2 height-[calc(100vh - 8rem)]">
+        <div className="col-span-7 grid grid-rows-[0fr,1fr,0fr] gap-2 height-[calc(100vh - 8rem)] px-2">
           <div className="flex justify-between items-center border-b pb-2">
             <p className="text-3xl font-semibold">Valerin Cardenas</p>
 
@@ -74,8 +89,8 @@ const ChangeChats = () => {
               </svg>
             </div>
           </div>
-          <div>
-            <div>
+          <div className="flex flex-col gap-4">
+            <div className="mr-20 flex gap-2 bg-gray-100 p-3 rounded-lg shadow-md">
               <img
                 className="w-12 h-2w-12 rounded-full"
                 src={userPhoto}
@@ -86,7 +101,7 @@ const ChangeChats = () => {
                 <p>12/05/24</p>
               </div>
             </div>
-            <div>
+            <div className="ml-20 flex gap-2 bg-gray-100 p-3 rounded-lg shadow-md">
               <img
                 className="w-12 h-2w-12 rounded-full"
                 src={userPhoto}
@@ -104,7 +119,9 @@ const ChangeChats = () => {
               type="text"
               placeholder="Escribe un mensaje..."
             />
-            <button>Send</button>
+            <button className="bg-green-700 hover:bg-green-800 text-white font-semibold py-2 px-4 rounded-lg">
+              Send
+            </button>
           </div>
         </div>
       </section>
