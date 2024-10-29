@@ -5,7 +5,7 @@ const ProfilePage = () => {
   return (
     <TemplateMain>
       <section className="w-full relative">
-        <div className="w-full h-72 top-0 bg-[#ffffff99] absolute -z-10 rounded-t-3xl"></div>
+        <div className="w-full h-72 top-0 bg-[#ffffffdc] absolute -z-10 rounded-t-xl shadow"></div>
 
         <div className="rounded-full mx-auto border-white pt-56 pl-10">
           <figure className="flex gap-7 items-center">

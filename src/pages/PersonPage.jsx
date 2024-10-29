@@ -4,8 +4,8 @@ import TemplateMain from "../Templates/TemplateMain";
 export const PersonPage = () => {
   return (
     <TemplateMain>
-      <section>
-        <div className="py-6 grid gap-4">
+      <section className="">
+        <div className="grid gap-4">
           <h1 className="text-5xl font-bold text-gray-900 dark:text-white">
             Descubre productos
           </h1>

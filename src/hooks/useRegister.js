@@ -1,13 +1,14 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useForm } from "./useForm";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export const useRegister = () => {
   const { setEstaEnLinea } = useContext(UserContext);
   const navigate = useNavigate();
+  const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
 
   const {
     tipoUsuario,
@@ -38,6 +39,10 @@ export const useRegister = () => {
     contrasena,
   }) => {
     const errores = {};
+
+    if (imagenSeleccionada === null) {
+      errores.imagen = "La imagen es obligatoria";
+    }
 
     // Validar que no estén vacíos
     if (!tipoUsuario || tipoUsuario.trim() === "") {
@@ -100,14 +105,31 @@ export const useRegister = () => {
     try {
       const url = "http://localhost:9999/api/registrar";
 
-      const response = await axios.post(url, {
-        nombreCompleto: nombre,
-        tipoDocumento: tipoDocumento,
-        numeroDocumento: numeroDocumento,
-        telefono: telefono,
-        email: correo,
-        password: contrasena,
-        tipoEntidad: tipoUsuario,
+      // Crear un objeto FormData
+      const formData = new FormData();
+      formData.append(
+        "usuario",
+        new Blob(
+          [
+            JSON.stringify({
+              nombreCompleto: nombre,
+              tipoDocumento: tipoDocumento,
+              numeroDocumento: numeroDocumento,
+              telefono: telefono,
+              email: correo,
+              password: contrasena,
+              tipoEntidad: tipoUsuario,
+            }),
+          ],
+          { type: "application/json" }
+        )
+      ); // Especificar el tipo de contenido
+      formData.append("file", imagenSeleccionada); // Agregar el archivo seleccionado
+
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // Asegúrate de que el tipo de contenido sea correcto
+        },
       });
 
       if (response.data.esValido) {
@@ -117,6 +139,8 @@ export const useRegister = () => {
           "usuarioActivo",
           JSON.stringify(response.data.usuario)
         );
+
+        // http://localhost:9999/images/1730177260068_fondo.png
 
         setEstaEnLinea(true);
 
@@ -132,9 +156,12 @@ export const useRegister = () => {
       }
     } catch (error) {
       console.log(error);
-
-      toast.error("Error al registrar el usuario" + error);
+      toast.error("Error al registrar el usuario: " + error);
     }
+  };
+
+  const handleFileChange = (e) => {
+    setImagenSeleccionada(e.target.files[0]);
   };
 
   return {
@@ -147,5 +174,7 @@ export const useRegister = () => {
     contrasena,
     onInputChange,
     onGuardarUsuario,
+    handleFileChange,
+    imagenSeleccionada,
   };
 };

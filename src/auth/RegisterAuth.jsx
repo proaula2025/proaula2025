@@ -14,6 +14,8 @@ const RegisterAuth = () => {
     telefono,
     tipoDocumento,
     tipoUsuario,
+    handleFileChange,
+    imagenSeleccionada,
   } = useRegister();
 
   const nombreCampo =
@@ -24,18 +26,61 @@ const RegisterAuth = () => {
       : "Nombre de la empresa";
 
   return (
-    <section className="p-4 before:bg-gradient-to-tr from-white to-[rgba(8,195,55,0.66)] before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen">
-      <figure className="w-44">
+    <section className="p-4 before:bg-[#cccccc21] grid items-center before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen">
+      <figure className="w-44 absolute top-4 left-36">
         <img src={logoApp} alt="logo app" />
       </figure>
 
       <article className="w-full lg:grid lg:grid-cols-2 lg:justify-items-center mt-8">
-        <div className="lg:w-[60%]">
+        <div className="lg:w-[70%] bg-white p-4 rounded-md shadow">
           <h2 className="text-4xl font-semibold text-center my-5">
             Registrate
           </h2>
 
           <form className="grid gap-2">
+            <div>
+              <label
+                htmlFor="first_name"
+                className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+              >
+                Foto de perfil
+              </label>
+
+              <div className="flex items-center justify-center w-full">
+                <label className="flex flex-col items-center justify-center w-full h-20 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                  <div className="flex flex-col items-center justify-center">
+                    <svg
+                      className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 20 16"
+                    >
+                      <path
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+                      />
+                    </svg>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      <span className="font-semibold">
+                        {imagenSeleccionada
+                          ? imagenSeleccionada.name
+                          : "Agrega foto de perfil"}
+                      </span>
+                    </p>
+                  </div>
+                  <input
+                    id="dropzone-file"
+                    type="file"
+                    className="hidden"
+                    onChange={handleFileChange}
+                  />
+                </label>
+              </div>
+            </div>
             <div>
               <label
                 htmlFor="first_name"
@@ -132,7 +177,7 @@ const RegisterAuth = () => {
               ¿Ya tienes una cuenta?{" "}
               <Link
                 className="text-green-500 hover:underline"
-                to="/auth/ingresar"
+                to="/auth/iniciar"
               >
                 Ingresa
               </Link>

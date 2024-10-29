@@ -7,13 +7,13 @@ const LoginAuth = () => {
   const { formState, onIniciarSesion, onInputChange } = useLogin();
 
   return (
-    <section className="p-4 before:bg-gradient-to-tr from-white to-[rgba(8,195,55,0.66)] before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen flex items-center">
-      <figure className="w-44 absolute top-4 left-4">
+    <section className="p-4 before:bg-[#cccccc21] before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen flex items-center">
+      <figure className="w-44 absolute top-4 left-48">
         <img src={logoApp} alt="logo app" />
       </figure>
 
-      <article className="w-full lg:grid lg:grid-cols-2 lg:justify-items-center">
-        <div className="lg:w-[50%] lg:flex lg:flex-col lg:justify-center">
+      <article className="w-full lg:grid lg:grid-cols-2 lg:justify-items-center lg:items-center">
+        <div className="lg:w-[55%] h-max lg:flex lg:flex-col lg:justify-center bg-white p-4 rounded-md shadow">
           <h2 className="text-4xl font-semibold text-center my-5">
             Inicia sesión
           </h2>

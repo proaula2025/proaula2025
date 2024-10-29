@@ -4,16 +4,16 @@ import TemplateMain from "./../Templates/TemplateMain";
 const ChangeChats = () => {
   return (
     <TemplateMain>
-      <section className="w-full h-[calc(100vh-7.5rem)] grid grid-cols-10 gap-2 bg-[#ffffff47] p-2 rounded-md">
+      <section className="w-full h-[calc(100vh-7.5rem)] grid grid-cols-10 gap-2 bg-[#fff] shadow p-2 rounded-md">
         <div className="col-span-3 p-3 border-r">
           <input
             className="w-full h-12 px-2 bg-stone-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500"
             type="text"
-            placeholder="Search"
+            placeholder="Buscar usuario..."
           />
 
           <div className="w-full pt-4 grid gap-4">
-            <div className="w-full flex gap-3 p-3 bg-[#8d8d8d5c] rounded-md cursor-pointer">
+            <div className="w-full flex gap-3 p-3 bg-[#b5b5b520] rounded-md cursor-pointer">
               <img
                 className="w-16 h-2w-16 rounded-lg"
                 src={userPhoto}
@@ -24,7 +24,7 @@ const ChangeChats = () => {
                 <p className="text-sm cursor-pointer">Message</p>
               </div>
             </div>
-            <div className="w-full flex gap-3 p-3 bg-[#8d8d8d5c] rounded-md cursor-pointer">
+            <div className="w-full flex gap-3 p-3 bg-[#b5b5b520] rounded-md cursor-pointer">
               <img
                 className="w-16 h-2w-16 rounded-lg"
                 src={userPhoto}
