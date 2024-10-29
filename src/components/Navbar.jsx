@@ -1,26 +1,26 @@
 import { useContext } from "react";
 import { imagenNav } from "../images";
 import { UserContext } from "./../context/UserContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const { usuarioEnLinea, estaEnLinea, cerrarSesion } = useContext(UserContext);
+  const { estaEnLinea, cerrarSesion } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   return (
     <nav className="relative px-4 py-4 flex justify-between items-center bg-white border-b">
-      <a className="font-bold leading-none cursor-pointer">
+      <Link className="font-bold leading-none cursor-pointer" to="/inicio">
         <img className="w-32 h-auto" src={imagenNav} alt="Logo nav" />
-      </a>
+      </Link>
       <ul className="hidden absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2  lg:mx-auto lg:flex lg:items-center lg:w-auto lg:space-x-6">
         <li>
-          <a
+          <Link
             className="text-sm text-[#39c962] font-bold hover:text-gray-500"
-            href="#"
+            to="/inicio"
           >
             Inicio
-          </a>
+          </Link>
         </li>
         <li className="text-gray-300">
           <svg
@@ -39,9 +39,9 @@ const Navbar = () => {
           </svg>
         </li>
         <li>
-          <a className="text-sm text-gray-400" href="#">
+          <Link className="text-sm text-gray-400" to="/sobre-nosotros">
             Sobre nosotros
-          </a>
+          </Link>
         </li>
         <li className="text-gray-300">
           <svg
@@ -60,9 +60,12 @@ const Navbar = () => {
           </svg>
         </li>
         <li>
-          <a className="text-sm text-gray-400 hover:text-gray-500" href="#">
+          <Link
+            className="text-sm text-gray-400 hover:text-gray-500"
+            to="personas"
+          >
             Servicios
-          </a>
+          </Link>
         </li>
         <li className="text-gray-300">
           <svg
@@ -81,9 +84,12 @@ const Navbar = () => {
           </svg>
         </li>
         <li>
-          <a className="text-sm text-gray-400 hover:text-gray-500" href="#">
-            Contanctos
-          </a>
+          <Link
+            className="text-sm text-gray-400 hover:text-gray-500"
+            to="/contactanos"
+          >
+            Contactanos
+          </Link>
         </li>
       </ul>
 

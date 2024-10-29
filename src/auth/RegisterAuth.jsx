@@ -27,9 +27,34 @@ const RegisterAuth = () => {
 
   return (
     <section className="p-4 before:bg-[#cccccc21] grid items-center before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen">
-      <figure className="w-44 absolute top-4 left-36">
+      <figure className="w-44 absolute top-4 right-6">
         <img src={logoApp} alt="logo app" />
       </figure>
+
+      <Link
+        to="/inicio"
+        className="w-44 absolute top-4 left-6 text-lg flex gap-2 items-center text-green-500 cursor-pointer"
+      >
+        <svg
+          className="w-6 h-6 text-gray-500 dark:text-white"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M5 12h14M5 12l4-4m-4 4 4 4"
+          />
+        </svg>
+
+        <p>Volver</p>
+      </Link>
 
       <article className="w-full lg:grid lg:grid-cols-2 lg:justify-items-center mt-8">
         <div className="lg:w-[70%] bg-white p-4 rounded-md shadow">
