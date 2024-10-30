@@ -4,17 +4,22 @@ import VentaProducto from "./VentaProducto";
 import { formatearPrecioColombiano } from "../helpers/productsHelpers";
 import { useState } from "react";
 
-const CardProductPersona = ({ producto }) => {
-  const [gestionVentaProducto, setGestionVentaProducto] = useState({
-    producto: {},
-    openModal: false,
-  });
+const CardProductPersona = ({
+  producto,
+  handleOpenModalRegistrarse,
+  estaEnLinea,
+}) => {
+  const [gestionVentaProducto, setGestionVentaProducto] = useState({});
+  const [openModalProducto, setOpenModalProducto] = useState(false);
 
   const onComprarProducto = () => {
-    setGestionVentaProducto({
-      producto,
-      openModal: !gestionVentaProducto.openModal,
-    });
+    if (!estaEnLinea) {
+      handleOpenModalRegistrarse();
+      return;
+    }
+
+    setGestionVentaProducto(producto);
+    setOpenModalProducto(true);
   };
 
   return (
@@ -57,10 +62,10 @@ const CardProductPersona = ({ producto }) => {
         </div>
       </div>
 
-      {gestionVentaProducto && (
+      {openModalProducto && (
         <VentaProducto
           gestionVentaProducto={gestionVentaProducto}
-          setGestionVentaProducto={setGestionVentaProducto}
+          setOpenModalProducto={setOpenModalProducto}
         />
       )}
     </>
@@ -69,6 +74,8 @@ const CardProductPersona = ({ producto }) => {
 
 CardProductPersona.propTypes = {
   producto: PropTypes.object.isRequired,
+  handleOpenModalRegistrarse: PropTypes.func.isRequired,
+  estaEnLinea: PropTypes.bool.isRequired,
 };
 
 export default CardProductPersona;

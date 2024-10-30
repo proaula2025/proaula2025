@@ -5,13 +5,61 @@ import TemplateMain from "../Templates/TemplateMain";
 import InputText from "./../components/InputText";
 import ModalProduct from "./../components/ModalProduct";
 import { ProductosContext } from "./../context/ProductsContext";
+import { MensajeInvitadoRegistrarse } from "../components/MensajeInvitadoRegistrarse";
+import { UserContext } from "../context/UserContext";
 
 export const PersonPage = () => {
+  const { estaEnLinea } = useContext(UserContext);
   const { productosPersona, setProductosPersona } =
     useContext(ProductosContext);
   const [openModalProduct, setOpenModalProduct] = useState(false);
+  const [abrirModalRegistrarse, setAbrirModalRegistrarse] = useState(false);
+  const [searchProducto, setSearchProducto] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedEstado, setSelectedEstado] = useState("");
+  const [selectedTipo, setSelectedTipo] = useState("");
+
+  const getProductosByName = (
+    name = "",
+    category = "",
+    estado = "",
+    tipo = ""
+  ) => {
+    name = name.toLocaleLowerCase().trim();
+    return productosPersona.filter((prod) => {
+      const matchesName =
+        name.length === 0 ||
+        prod.nombreProducto.toLocaleLowerCase().includes(name) ||
+        prod.categoria.toLocaleLowerCase().includes(name) ||
+        prod.estado.toLocaleLowerCase().includes(name);
+
+      const matchesCategory = category === "" || prod.categoria === category;
+
+      const matchesEstado = estado === "" || prod.estado === estado;
+
+      const matchesTipo = tipo === "" || prod.tipoProducto === tipo;
+
+      return matchesName && matchesCategory && matchesEstado && matchesTipo;
+    });
+  };
+
+  const productosFiltrados = getProductosByName(
+    searchProducto,
+    selectedCategory,
+    selectedEstado,
+    selectedTipo
+  );
+
+  const handleOpenModalRegistrarse = () => {
+    setAbrirModalRegistrarse(!abrirModalRegistrarse);
+  };
 
   const handleOpenModalProduct = () => {
+    if (!estaEnLinea) {
+      handleOpenModalRegistrarse();
+      return;
+    }
+
     setOpenModalProduct(!openModalProduct);
   };
 
@@ -32,21 +80,27 @@ export const PersonPage = () => {
 
         <div className="grid grid-cols-4 gap-4">
           <div>
-            <InputText label="Buscar" placeholder="Buscar..." />
+            <InputText
+              label="Buscar"
+              placeholder="Buscar..."
+              value={searchProducto}
+              onChange={(e) => setSearchProducto(e.target.value)}
+            />
           </div>
           <div>
             <label
-              htmlFor="large"
+              htmlFor="category"
               className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
             >
               Categoria
             </label>
-
             <select
-              id="large"
+              id="category"
               className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
             >
-              <option>Selecciona</option>
+              <option value="">Selecciona</option>
               {categoryProducts.map((categoria) => (
                 <option key={categoria.id} value={categoria.category}>
                   {categoria.category}
@@ -56,17 +110,18 @@ export const PersonPage = () => {
           </div>
           <div>
             <label
-              htmlFor="large"
+              htmlFor="estado"
               className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
             >
               Estado
             </label>
-
             <select
-              id="large"
+              id="estado"
               className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={selectedEstado}
+              onChange={(e) => setSelectedEstado(e.target.value)}
             >
-              <option>Selecciona</option>
+              <option value="">Selecciona</option>
               {stateProducts.map((estado) => (
                 <option key={estado.id} value={estado.state}>
                   {estado.state}
@@ -76,17 +131,18 @@ export const PersonPage = () => {
           </div>
           <div>
             <label
-              htmlFor="large"
+              htmlFor="tipo"
               className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
             >
               Tipo de producto
             </label>
-
             <select
-              id="large"
+              id="tipo"
               className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={selectedTipo}
+              onChange={(e) => setSelectedTipo(e.target.value)}
             >
-              <option>Selecciona</option>
+              <option value="">Selecciona</option>
               <option value="Venta">En venta</option>
               <option value="Intercambio">Por intercambio</option>
             </select>
@@ -94,8 +150,13 @@ export const PersonPage = () => {
         </div>
 
         <div className="grid grid-cols-4 gap-2 mt-4 shadow rounded-md min-h-72 bg-white p-4">
-          {productosPersona.map((producto) => (
-            <CardProductPersona key={producto.idProducto} producto={producto} />
+          {productosFiltrados.map((producto) => (
+            <CardProductPersona
+              key={producto.idProducto}
+              producto={producto}
+              handleOpenModalRegistrarse={handleOpenModalRegistrarse}
+              estaEnLinea={estaEnLinea}
+            />
           ))}
         </div>
       </section>
@@ -130,6 +191,12 @@ export const PersonPage = () => {
           handleOpenModalProduct={handleOpenModalProduct}
           mensajeGuardado="Producto guardado correctamente"
           setProductosPersona={setProductosPersona}
+        />
+      )}
+
+      {abrirModalRegistrarse && (
+        <MensajeInvitadoRegistrarse
+          handleOpenModalRegistrarse={handleOpenModalRegistrarse}
         />
       )}
     </TemplateMain>

@@ -1,8 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { marketplaceImagen } from "../images";
 
 const InvitePerson = () => {
+  const navigate = useNavigate();
+
   return (
     <main className="w-[85%] m-auto grid grid-rows-[auto,1fr,auto] gap-1 h-screen before:content before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 before:bg-[#cccccc21]">
       <Navbar />
@@ -21,6 +24,7 @@ const InvitePerson = () => {
           <button
             className="w-2/3 h-12 bg-[#39c962] hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition duration-200 ease-in-out"
             type="button"
+            onClick={() => navigate("/personas")}
           >
             Explorar Productos
           </button>

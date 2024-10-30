@@ -29,7 +29,7 @@ const AppRouter = () => {
           </>
         )}
 
-        <Route path="/*" element={<Navigate to="/auth/iniciar" />} />
+        <Route path="/*" element={<Navigate to="/inicio" />} />
       </Routes>
     </>
   );

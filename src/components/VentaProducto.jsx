@@ -1,14 +1,17 @@
-import ReactModal from "react-modal";
 import InputText from "./InputText";
 import { PropTypes } from "prop-types";
 import axios from "axios";
 import { apiUrlBackend } from "./../helpers/apiUrl";
+import { formatearPrecioColombiano } from "../helpers/productsHelpers";
+import { useState } from "react";
 
-const VentaProducto = ({ onComprarProducto }) => {
+const VentaProducto = ({ gestionVentaProducto, setOpenModalProducto }) => {
+  const [cantidadAComprar, setCantidadAComprar] = useState(1);
+
   const onComprarProductoSeleccionado = async () => {
     try {
       const response = await axios.post(apiUrlBackend + "/compraProducto", {
-        producto: producto._id,
+        producto: gestionVentaProducto,
         cantidad: 1,
       });
     } catch (error) {
@@ -17,11 +20,7 @@ const VentaProducto = ({ onComprarProducto }) => {
   };
 
   return (
-    <ReactModal
-      isOpen={true}
-      className="w-[95%] max-w-[35rem] p-5 mx-auto my-10 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:text-white"
-      overlayClassName="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-y-auto"
-    >
+    <section className="w-full max-w-md p-4 mx-auto bg-white rounded-lg shadow dark:bg-gray-800">
       <h2 className="text-2xl font-semibold tracking-tight text-gray-900 mb-2 dark:text-white">
         Compra producto
       </h2>
@@ -32,30 +31,38 @@ const VentaProducto = ({ onComprarProducto }) => {
 
       <ul className="grid gap-2">
         <li className="mt-4 text-gray-400 dark:text-gray-300">
-          <span className="font-semibold">Producto:</span> Nombre del producto
+          <span className="font-semibold">Producto:</span>{" "}
+          {gestionVentaProducto.nombreProducto}
         </li>
         <li className="mt-1 text-gray-400 dark:text-gray-300">
-          <span className="font-semibold">Precio:</span> $100.000
+          <span className="font-semibold">Precio:</span>{" "}
+          {formatearPrecioColombiano(gestionVentaProducto.precio)} pesos
         </li>
         <li className="mt-1 text-gray-400 dark:text-gray-300">
-          <span className="font-semibold">Categoria:</span> Categoria del
+          <span className="font-semibold">Categoria:</span>{" "}
+          {gestionVentaProducto.categoria}
         </li>
         <li className="mt-1 text-gray-400 dark:text-gray-300">
-          <span className="font-semibold">Estado:</span> Estado del producto
+          <span className="font-semibold">Estado:</span>{" "}
+          {gestionVentaProducto.estado}
         </li>
         <li className="mt-1 text-gray-400 dark:text-gray-300">
-          <span className="font-semibold">Cantidad:</span> 2
+          <span className="font-semibold">Cantidad total:</span>{" "}
+          {gestionVentaProducto.cantidad}
         </li>
         <li className="mt-1 text-gray-400 dark:text-gray-300">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi vel
-          molestiae earum eligendi, consequatur, laborum suscipit accusantium
-          neque, officiis quos voluptas provident non nihil alias libero!
-          Aliquam rem libero quia!
+          {gestionVentaProducto.descripcion}
         </li>
       </ul>
 
       <form className="mt-4 grid gap-3">
-        <InputText label="Cantidad a comprar" type="number" />
+        <InputText
+          label="Cantidad a comprar"
+          typeInput="number"
+          value={cantidadAComprar}
+          placeholder="Cantidad a comprar..."
+          onChange={(e) => setCantidadAComprar(e.target.value)}
+        />
 
         <button
           type="submit"
@@ -64,12 +71,13 @@ const VentaProducto = ({ onComprarProducto }) => {
           Guardar
         </button>
       </form>
-    </ReactModal>
+    </section>
   );
 };
 
 VentaProducto.propTypes = {
-  onComprarProducto: PropTypes.func.isRequired,
+  gestionVentaProducto: PropTypes.object.isRequired,
+  setOpenModalProducto: PropTypes.func.isRequired,
 };
 
 export default VentaProducto;
