@@ -31,13 +31,13 @@ const InputText = ({
 };
 
 InputText.propTypes = {
-  label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  idLabel: PropTypes.string.isRequired,
-  typeInput: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  placeholder: PropTypes.string,
+  idLabel: PropTypes.string,
+  typeInput: PropTypes.string,
+  name: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 export default InputText;

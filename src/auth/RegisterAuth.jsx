@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import InputText from "../components/InputText";
-import { logoApp, registerImg } from "../images";
+import { imagenNav, registerImg } from "../images";
 import { useRegister } from "../hooks";
 
 const RegisterAuth = () => {
@@ -28,7 +28,7 @@ const RegisterAuth = () => {
   return (
     <section className="p-4 before:bg-[#cccccc21] grid items-center before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen">
       <figure className="w-44 absolute top-4 right-6">
-        <img src={logoApp} alt="logo app" />
+        <img src={imagenNav} alt="logo app" />
       </figure>
 
       <Link

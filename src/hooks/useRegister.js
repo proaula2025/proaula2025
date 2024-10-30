@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export const useRegister = () => {
-  const { setEstaEnLinea } = useContext(UserContext);
+  const { setEstaEnLinea, setUsuarioEnLinea } = useContext(UserContext);
   const navigate = useNavigate();
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
 
@@ -143,6 +143,7 @@ export const useRegister = () => {
         // http://localhost:9999/images/1730177260068_fondo.png
 
         setEstaEnLinea(true);
+        setUsuarioEnLinea(response.data.usuario);
 
         if (tipoUsuario === "Persona natural") {
           navigate("/personas");

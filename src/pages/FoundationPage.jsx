@@ -1,78 +1,36 @@
-import { productsTotal } from "../images";
-import { useState } from "react";
-import ReactApexChart from "react-apexcharts";
+import { productsTotal, userPhoto } from "../images";
+import { useContext } from "react";
 import TemplateMain from "../Templates/TemplateMain";
+import { UserContext } from "../context/UserContext";
+import { ProductosContext } from "../context/ProductsContext";
+import CardProductFundacion from "../components/CardProductFundacion";
 
 const FoundationPage = () => {
-  const [chartOptions] = useState({
-    series: [52.8, 26.8, 20.4],
-    options: {
-      colors: ["#1C64F2", "#16BDCA", "#9061F9"],
-      chart: {
-        height: 420,
-        width: "100%",
-        type: "pie",
-      },
-      stroke: {
-        colors: ["white"],
-        lineCap: "",
-      },
-      plotOptions: {
-        pie: {
-          labels: {
-            show: true,
-          },
-          size: "100%",
-          dataLabels: {
-            offset: -25,
-          },
-        },
-      },
-      labels: ["Direct", "Organic search", "Referrals"],
-      dataLabels: {
-        enabled: true,
-        style: {
-          fontFamily: "Inter, sans-serif",
-        },
-      },
-      legend: {
-        position: "bottom",
-        fontFamily: "Inter, sans-serif",
-      },
-      yaxis: {
-        labels: {
-          formatter: function (value) {
-            return value + "%";
-          },
-        },
-      },
-      xaxis: {
-        labels: {
-          formatter: function (value) {
-            return value + "%";
-          },
-        },
-        axisTicks: {
-          show: false,
-        },
-        axisBorder: {
-          show: false,
-        },
-      },
-    },
-  });
+  const { usuarioEnLinea } = useContext(UserContext);
+  const { productos, setProductos } = useContext(ProductosContext);
 
   return (
     <TemplateMain>
       <div className="grid grid-cols-4 gap-2">
         <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
-          <div className="flex justify-between">
-            <h2 className="text-lg font-semibold">
-              Total de productos donados
-            </h2>
-            <img className="w-8" src={productsTotal} alt="Productos totales" />
+          <div className="flex gap-2">
+            <img
+              className="w-24 rounded-full object-cover"
+              src={userPhoto}
+              alt="Productos totales"
+            />
+            <div className="flex flex-col">
+              <h2 className="text-lg font-semibold">
+                {usuarioEnLinea.nombreCompleto}
+              </h2>
+              <p className="text-base text-gray-500 truncate dark:text-gray-400">
+                {usuarioEnLinea.email}
+              </p>
+              <p className="text-base text-gray-500 truncate dark:text-gray-400">
+                {usuarioEnLinea.telefono}
+              </p>
+            </div>
           </div>
-          <p className="text-4xl font-bold">20</p>
         </div>
         <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
           <div className="flex justify-between">
@@ -81,181 +39,55 @@ const FoundationPage = () => {
             </h2>
             <img className="w-8" src={productsTotal} alt="Productos totales" />
           </div>
-          <p className="text-4xl font-bold">20</p>
+          <p className="text-4xl font-bold">{productos.length}</p>
         </div>
         <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
           <div className="flex justify-between">
             <h2 className="text-lg font-semibold">
-              Total de productos donados
+              Total de productos sin recoger
             </h2>
             <img className="w-8" src={productsTotal} alt="Productos totales" />
           </div>
-          <p className="text-4xl font-bold">20</p>
+          <p className="text-4xl font-bold">
+            {usuarioEnLinea.productosDonados}
+          </p>
         </div>
         <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
           <div className="flex justify-between">
             <h2 className="text-lg font-semibold">
-              Total de productos donados
+              Total de productos recibidos
             </h2>
             <img className="w-8" src={productsTotal} alt="Productos totales" />
           </div>
-          <p className="text-4xl font-bold">20</p>
+          <p className="text-4xl font-bold">
+            {usuarioEnLinea.productosDonados}
+          </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-5 gap-2 mt-6">
+      <div className="w-full mt-6 bg-white p-4 shadow rounded-md">
         <div className="w-full col-span-3 grid gap-4">
           <h2 className="text-2xl font-semibold">Productos donados</h2>
 
-          <div className="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full min-h-[35rem] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div className="flex items-center justify-between mb-4">
               <h5 className="text-xl font-semibold leading-none text-[#39c962] dark:text-white">
                 Últimos productos donados
               </h5>
-              <a
-                href="#"
-                className="text-sm font-medium text-[#39c962] hover:underline dark:text-blue-500"
-              >
-                Ver todos
-              </a>
             </div>
             <div className="flow-root">
               <ul
                 role="list"
                 className="divide-y divide-gray-200 dark:divide-gray-700"
               >
-                <li className="py-3 sm:py-4">
-                  <div className="flex items-center">
-                    <div className="flex-1 min-w-0 ms-4">
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                        Nombre de la empresa
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        CorreoDeLaEmpresa@gmail.com
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Descripcion del producto
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Fecha de entrega
-                      </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                      <button className="text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Recoger
-                      </button>
-                    </div>
-                  </div>
-                </li>
-                <li className="py-3 sm:py-4">
-                  <div className="flex items-center ">
-                    <div className="flex-1 min-w-0 ms-4">
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                        Nombre de la empresa
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        CorreoDeLaEmpresa@gmail.com
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Descripcion del producto
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Fecha de entrega
-                      </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                      <button className="text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Recoger
-                      </button>
-                    </div>
-                  </div>
-                </li>
-                <li className="py-3 sm:py-4">
-                  <div className="flex items-center">
-                    <div className="flex-1 min-w-0 ms-4">
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                        Nombre de la empresa
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        CorreoDeLaEmpresa@gmail.com
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Descripcion del producto
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Fecha de entrega
-                      </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                      <button className="text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Recoger
-                      </button>
-                    </div>
-                  </div>
-                </li>
-                <li className="py-3 sm:py-4">
-                  <div className="flex items-center ">
-                    <div className="flex-1 min-w-0 ms-4">
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                        Nombre de la empresa
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        CorreoDeLaEmpresa@gmail.com
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Descripcion del producto
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Fecha de entrega
-                      </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                      <button className="text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Recoger
-                      </button>
-                    </div>
-                  </div>
-                </li>
-                <li className="pt-3 pb-0 sm:pt-4">
-                  <div className="flex items-center ">
-                    <div className="flex-1 min-w-0 ms-4">
-                      <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                        Nombre de la empresa
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        CorreoDeLaEmpresa@gmail.com
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Descripcion del producto
-                      </p>
-                      <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                        Fecha de entrega
-                      </p>
-                    </div>
-                    <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                      <button className="text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Recoger
-                      </button>
-                    </div>
-                  </div>
-                </li>
+                {productos.map((producto) => (
+                  <CardProductFundacion
+                    key={producto.idProducto}
+                    producto={producto}
+                    setProductos={setProductos}
+                  />
+                ))}
               </ul>
-            </div>
-          </div>
-        </div>
-        <div className="col-span-2">
-          <div className="w-full h-full col-span-3 flex flex-col gap-4">
-            <h2 className="text-2xl font-semibold">Grafica de productos</h2>
-
-            <div className="bg-white rounded-lg shadow h-full flex flex-col justify-center">
-              <div id="pie-chart">
-                <ReactApexChart
-                  options={chartOptions.options}
-                  series={chartOptions.series}
-                  type="pie"
-                  height={420}
-                />
-              </div>
             </div>
           </div>
         </div>

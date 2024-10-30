@@ -93,6 +93,7 @@ const CompanyPage = () => {
           isOpen={openModalProduct}
           handleOpenModalProduct={handleOpenModalProduct}
           fundacionSeleccionada={fundacionSeleccionada}
+          mensajeGuardado="Tu donación fue exitosa, la fundación recibirá la notificación de su pedido y recogerá el producto tan pronto como pueda."
         />
       )}
     </TemplateMain>

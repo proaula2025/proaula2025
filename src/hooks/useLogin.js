@@ -6,7 +6,7 @@ import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
 export const useLogin = () => {
-  const { setEstaEnLinea } = useContext(UserContext);
+  const { setEstaEnLinea, setUsuarioEnLinea } = useContext(UserContext);
   const navigate = useNavigate();
   const { formState, onInputChange } = useForm({
     tipoUsuario: "Persona natural",
@@ -56,6 +56,7 @@ export const useLogin = () => {
         );
 
         setEstaEnLinea(true);
+        setUsuarioEnLinea(response.data.usuario);
 
         if (formState.tipoUsuario === "Persona natural") {
           navigate("/personas");

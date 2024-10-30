@@ -7,6 +7,7 @@ import { UserContext } from "../context/UserContext";
 import InvitePerson from "../pages/InvitePerson";
 import { AboutUs } from "../pages/AboutUs";
 import { ContactUs } from "../pages/ContactUs";
+import { PersonPage } from "../pages/PersonPage";
 
 const AppRouter = () => {
   const { estaEnLinea } = useContext(UserContext);
@@ -20,14 +21,15 @@ const AppRouter = () => {
           <>
             <Route path="/auth/iniciar" element={<LoginAuth />} />
             <Route path="/auth/registrarse" element={<RegisterAuth />} />
+
+            <Route path="/inicio" element={<InvitePerson />} />
+            <Route path="/sobre-nosotros" element={<AboutUs />} />
+            <Route path="/personas" element={<PersonPage />} />
+            <Route path="/contactanos" element={<ContactUs />} />
           </>
         )}
 
-        <Route path="/inicio" element={<InvitePerson />} />
-        <Route path="/sobre-nosotros" element={<AboutUs />} />
-        <Route path="/contactanos" element={<ContactUs />} />
-
-        <Route path="/*" element={<Navigate to="/inicio" />} />
+        <Route path="/*" element={<Navigate to="/auth/iniciar" />} />
       </Routes>
     </>
   );

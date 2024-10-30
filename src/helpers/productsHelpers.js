@@ -46,3 +46,11 @@ export const categoryProducts = [
   { id: 27, category: "Videojuegos" },
   { id: 28, category: "Otros" },
 ];
+
+export const formatearPrecioColombiano = (precio) => {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0,
+  }).format(precio);
+};

@@ -13,6 +13,9 @@ const ModalProduct = ({
   isOpen,
   handleOpenModalProduct,
   fundacionSeleccionada,
+  tipoDeProducto = "Donación",
+  mensajeGuardado,
+  setProductosPersona,
 }) => {
   const { usuarioEnLinea } = useContext(UserContext);
   const [cargandoGuardado, setCargandoGuardado] = useState(false);
@@ -25,6 +28,7 @@ const ModalProduct = ({
     cantidad: "",
     precio: "",
     descripcion: "",
+    tipoProducto: "",
   });
 
   const validateForm = (formState) => {
@@ -57,6 +61,23 @@ const ModalProduct = ({
         "La cantidad es obligatoria y debe ser un número positivo.";
     }
 
+    if (usuarioEnLinea.tipoEntidad !== "Empresa") {
+      if (
+        !formState.precio ||
+        isNaN(formState.precio) ||
+        formState.precio <= 0
+      ) {
+        errors.precio =
+          "El precio es obligatorio y debe ser un número positivo.";
+      }
+    }
+
+    if (usuarioEnLinea.tipoEntidad !== "Empresa") {
+      if (!formState.tipoProducto) {
+        errors.tipoProducto = "El tipo de producto es obligatorio.";
+      }
+    }
+
     if (formState.descripcion && formState.descripcion.length > 250) {
       errors.descripcion =
         "La descripción no puede exceder los 250 caracteres.";
@@ -71,14 +92,12 @@ const ModalProduct = ({
     const errors = validateForm(formState);
 
     if (Object.keys(errors).length > 0)
-      return toast.error(
-        "Por favor, verifica el formulario y complete los campos."
-      );
+      return Object.values(errors).map((error) => toast.error(error));
 
     setCargandoGuardado(true);
 
     const loadingToast = toast.loading("Guardando producto...", {
-      duration: 5000, // 5 segundos de carga
+      duration: 6000,
       style: {
         border: "1px solid #0a74da",
         padding: "16px",
@@ -90,10 +109,11 @@ const ModalProduct = ({
       },
     });
 
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 6000));
 
     try {
-      const response = await axios.post("http://localhost:9999/api/producto", {
+      // Crear el objeto base para el envío
+      const productoData = {
         nombreProducto: formState.nombreProducto,
         categoria: formState.categoria,
         estado: formState.estado,
@@ -102,23 +122,47 @@ const ModalProduct = ({
         precio: formState.precio,
         descripcion: formState.descripcion,
         fecha: new Date(),
-        tipoProducto: "Donación",
-        empresaDono: {
+        tipoProducto: formState.tipoProducto,
+      };
+
+      // Solo agregar empresaDono si no es una donación
+      if (tipoDeProducto === "donacion") {
+        productoData.empresaDono = {
           idUsuario: usuarioEnLinea.idUsuario,
-        },
-        usuario: {
+        };
+
+        productoData.usuario = {
           idUsuario: fundacionSeleccionada.idUsuario,
-        },
-      });
+        };
+
+        productoData.tipoProducto = "Donación";
+      }
+
+      if (tipoDeProducto !== "donacion") {
+        productoData.usuario = {
+          idUsuario: usuarioEnLinea.idUsuario,
+        };
+      }
+
+      // Realizar la solicitud POST
+      const response = await axios.post(
+        "http://localhost:9999/api/producto",
+        productoData
+      );
 
       if (response.data.esValido) {
         toast.success(response.data.mensaje);
 
         Swal.fire({
           title: "¡Producto guardado!",
-          text: "Tu donación fue exitosa, la fundación recibira la notificación de su pedido y recogera el producto tan pronto pueda.",
+          text: mensajeGuardado,
           icon: "success",
         });
+
+        setProductosPersona((productos) => [
+          ...productos,
+          response.data.productoDTO,
+        ]);
 
         handleOpenModalProduct();
       } else {
@@ -224,26 +268,52 @@ const ModalProduct = ({
           onChange={onInputChange}
         />
 
-        <InputText
-          label="Cantidad del producto"
-          placeholder="20"
-          idLabel="cantidad"
-          typeInput="number"
-          name="cantidad"
-          value={formState.cantidad}
-          onChange={onInputChange}
-        />
-
-        {usuarioEnLinea.tipoEntidad !== "Empresa" && (
+        <div className="grid grid-cols-2 gap-2">
           <InputText
-            label="Precio del producto"
-            placeholder="100.000..."
-            idLabel="precio"
+            label="Cantidad del producto"
+            placeholder="20"
+            idLabel="cantidad"
             typeInput="number"
-            name="precio"
-            value={formState.precio}
+            name="cantidad"
+            value={formState.cantidad}
             onChange={onInputChange}
           />
+
+          {usuarioEnLinea.tipoEntidad !== "Empresa" && (
+            <InputText
+              label="Precio del producto"
+              placeholder="100.000..."
+              idLabel="precio"
+              typeInput="number"
+              name="precio"
+              value={formState.precio}
+              onChange={onInputChange}
+            />
+          )}
+        </div>
+
+        {usuarioEnLinea.tipoEntidad !== "Empresa" && (
+          <div>
+            <label
+              htmlFor="tipoProducto"
+              className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+            >
+              Acción del producto
+            </label>
+            <select
+              id="tipoProducto"
+              name="tipoProducto"
+              className="w-full p-2.5 mt-1 border bg-stone-100 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              value={formState.tipoProducto}
+              onChange={onInputChange}
+            >
+              <option value="" disabled>
+                Seleccionar
+              </option>
+              <option value="Venta">Venta</option>
+              <option value="Intercambio">Intercambio</option>
+            </select>
+          </div>
         )}
 
         <div>
@@ -287,7 +357,10 @@ const ModalProduct = ({
 ModalProduct.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   handleOpenModalProduct: PropTypes.func.isRequired,
-  fundacionSeleccionada: PropTypes.object.isRequired,
+  fundacionSeleccionada: PropTypes.object,
+  tipoDeProducto: PropTypes.string,
+  mensajeGuardado: PropTypes.string,
+  setProductosPersona: PropTypes.func,
 };
 
 export default ModalProduct;

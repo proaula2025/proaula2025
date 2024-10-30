@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { logoApp, registerImg } from "../images";
+import { imagenNav, registerImg } from "../images";
 import InputText from "./../components/InputText";
 import { useLogin } from "./../hooks";
 
@@ -9,7 +9,7 @@ const LoginAuth = () => {
   return (
     <section className="p-4 before:bg-[#cccccc21] before:w-full before:h-screen before:fixed before:top-0 before:left-0 before:-z-10 h-screen flex items-center">
       <figure className="w-44 absolute top-4 right-6">
-        <img src={logoApp} alt="logo app" />
+        <img src={imagenNav} alt="logo app" />
       </figure>
 
       <Link
