@@ -43,7 +43,7 @@ const TableReports = ({ registroProductos }) => {
         {registroProductos.map((producto) => (
           <tr
             className="bg-[#ffffff47] border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-[#ffffff80] dark:hover:bg-gray-600"
-            key={producto.idcompra}
+            key={producto.idCompra}
           >
             <th
               scope="row"

@@ -9,7 +9,7 @@ export const useLogin = () => {
   const { setEstaEnLinea, setUsuarioEnLinea } = useContext(UserContext);
   const navigate = useNavigate();
   const { formState, onInputChange } = useForm({
-    tipoUsuario: "Administracion",
+    tipoUsuario: "Administrador",
     correo: "",
     contrasena: "",
   });

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { imagenNav } from "../images";
+import { imagenNav, userPhoto } from "../images";
 import { UserContext } from "./../context/UserContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -68,7 +68,7 @@ const Navbar = () => {
           </svg>
         </li>
         {usuarioEnLinea.tipoEntidad !== "Empresa" &&
-          usuarioEnLinea.tipoEntidad !== "Administracion" &&
+          usuarioEnLinea.tipoEntidad !== "Administrador" &&
           usuarioEnLinea.tipoEntidad !== "Fundacion" && (
             <li>
               <Link
@@ -93,7 +93,7 @@ const Navbar = () => {
             </Link>
           </li>
         )}
-        {usuarioEnLinea.tipoEntidad === "Administracion" && (
+        {usuarioEnLinea.tipoEntidad === "Administrador" && (
           <li>
             <Link
               className={`text-sm hover:text-gray-500 ${isActiveLink(
@@ -163,12 +163,23 @@ const Navbar = () => {
       )}
 
       {estaEnLinea && (
-        <button
-          className="hidden lg:inline-block py-2 px-6 bg-[#39c962] hover:bg-green-600 text-sm text-white font-bold rounded-xl transition duration-200"
-          onClick={cerrarSesion}
-        >
-          Cerrar sesión
-        </button>
+        <div className="flex items-center gap-2">
+          <Link
+            to={`/${usuarioEnLinea.idUsuario}/${usuarioEnLinea.nombreCompleto}`}
+          >
+            <img
+              className="w-8 h-8 rounded-full cursor-pointer"
+              src={userPhoto}
+              alt="Imagen de perfil"
+            />
+          </Link>
+          <button
+            className="hidden lg:inline-block py-2 px-6 bg-[#39c962] hover:bg-green-600 text-sm text-white font-bold rounded-xl transition duration-200"
+            onClick={cerrarSesion}
+          >
+            Cerrar sesión
+          </button>
+        </div>
       )}
     </nav>
   );

@@ -8,6 +8,8 @@ import InvitePerson from "../pages/InvitePerson";
 import { AboutUs } from "../pages/AboutUs";
 import { ContactUs } from "../pages/ContactUs";
 import { PersonPage } from "../pages/PersonPage";
+import ProfilePage from "../pages/ProfilePage";
+import ChangeChats from "../pages/ChangeChats";
 
 const AppRouter = () => {
   const { estaEnLinea } = useContext(UserContext);
@@ -21,13 +23,15 @@ const AppRouter = () => {
           <>
             <Route path="/auth/iniciar" element={<LoginAuth />} />
             <Route path="/auth/registrarse" element={<RegisterAuth />} />
-
-            <Route path="/inicio" element={<InvitePerson />} />
-            <Route path="/sobre-nosotros" element={<AboutUs />} />
-            <Route path="/personas" element={<PersonPage />} />
-            <Route path="/contactanos" element={<ContactUs />} />
           </>
         )}
+
+        <Route path="/:idUsuario/:nombreUsuario" element={<ProfilePage />} />
+        <Route path="/intercambio" element={<ChangeChats />} />
+        <Route path="/inicio" element={<InvitePerson />} />
+        <Route path="/sobre-nosotros" element={<AboutUs />} />
+        <Route path="/personas" element={<PersonPage />} />
+        <Route path="/contactanos" element={<ContactUs />} />
 
         <Route path="/*" element={<Navigate to="/inicio" />} />
       </Routes>

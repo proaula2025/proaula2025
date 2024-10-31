@@ -57,14 +57,18 @@ export const useRegister = () => {
       errores.tipoDocumento = "El tipo de documento es obligatorio.";
     }
 
-    if (!numeroDocumento || numeroDocumento.trim() === "") {
+    if (
+      !numeroDocumento ||
+      Number(numeroDocumento) <= 0 ||
+      numeroDocumento.trim() === ""
+    ) {
       errores.numeroDocumento = "El número de documento es obligatorio.";
     } else if (!/^\d+$/.test(numeroDocumento)) {
       errores.numeroDocumento =
         "El número de documento debe contener solo números.";
     }
 
-    if (!telefono || telefono.trim() === "") {
+    if (!telefono || Number(telefono) <= 0 || telefono.trim() === "") {
       errores.telefono = "El teléfono es obligatorio.";
     } else if (!/^\d+$/.test(telefono)) {
       errores.telefono = "El teléfono debe contener solo números.";

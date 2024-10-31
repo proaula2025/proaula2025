@@ -9,6 +9,11 @@ const FoundationPage = () => {
   const { usuarioEnLinea } = useContext(UserContext);
   const { productos, setProductos } = useContext(ProductosContext);
 
+  const productosRecogidos = productos.filter(
+    (producto) => producto.fundacionRecogioProducto
+  ).length;
+  const productosSinRecoger = productos.length - productosRecogidos;
+
   return (
     <TemplateMain>
       <div className="grid grid-cols-4 gap-2">
@@ -35,7 +40,7 @@ const FoundationPage = () => {
         <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
           <div className="flex justify-between">
             <h2 className="text-lg font-semibold">
-              Total de productos donados
+              Total de productos donados en toda la app
             </h2>
             <img className="w-8" src={productsTotal} alt="Productos totales" />
           </div>
@@ -48,9 +53,7 @@ const FoundationPage = () => {
             </h2>
             <img className="w-8" src={productsTotal} alt="Productos totales" />
           </div>
-          <p className="text-4xl font-bold">
-            {usuarioEnLinea.productosDonados}
-          </p>
+          <p className="text-4xl font-bold">{productosSinRecoger}</p>
         </div>
         <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
           <div className="flex justify-between">
@@ -59,9 +62,7 @@ const FoundationPage = () => {
             </h2>
             <img className="w-8" src={productsTotal} alt="Productos totales" />
           </div>
-          <p className="text-4xl font-bold">
-            {usuarioEnLinea.productosDonados}
-          </p>
+          <p className="text-4xl font-bold">{productosRecogidos}</p>
         </div>
       </div>
 

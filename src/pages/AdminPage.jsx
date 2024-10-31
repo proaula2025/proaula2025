@@ -15,6 +15,7 @@ const AdminPage = () => {
     const getTodosUsuarios = async () => {
       try {
         const response = await axios.get(apiUrlBackend + "/todos-usuarios");
+
         setUsuarios(response.data.listaUsuario);
       } catch (error) {
         console.log(error);
@@ -27,11 +28,6 @@ const AdminPage = () => {
   const toggleTable = () => {
     setShowUsers(!showUsers); // Toggle the table view
   };
-
-  console.log({
-    usuarios,
-    registroProductos,
-  });
 
   return (
     <TemplateMain>

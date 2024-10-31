@@ -36,6 +36,10 @@ export const ProductosProvider = ({ children }) => {
   }, [usuarioEnLinea]);
 
   useEffect(() => {
+    if (!usuarioEnLinea?.idUsuario) {
+      return;
+    }
+
     const getProductosPorTipo = async () => {
       try {
         const response = await axios.get(
@@ -54,7 +58,7 @@ export const ProductosProvider = ({ children }) => {
     };
 
     getProductosPorTipo();
-  }, []);
+  }, [usuarioEnLinea]);
 
   return (
     <ProductosContext.Provider

@@ -57,7 +57,7 @@ const LoginAuth = () => {
                 value={formState.tipoUsuario}
                 onChange={onInputChange}
               >
-                <option value="Administracion">Administración</option>
+                <option value="Administrador">Administrador</option>
                 <option value="Persona natural">Persona natural</option>
                 <option value="Fundacion">Fundación</option>
                 <option value="Empresa">Empresa</option>

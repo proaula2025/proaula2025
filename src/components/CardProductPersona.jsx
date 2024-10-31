@@ -3,6 +3,7 @@ import { PropTypes } from "prop-types";
 import VentaProducto from "./VentaProducto";
 import { formatearPrecioColombiano } from "../helpers/productsHelpers";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const CardProductPersona = ({
   producto,
@@ -49,8 +50,13 @@ const CardProductPersona = ({
             <p className="text-gray-400 py-1 dark:text-white">
               Estado: {producto.fecha.split("T")[0]}
             </p>
-            <p className="text-gray-400 py-1 dark:text-white">
-              Dueño: {producto.usuario.nombreCompleto}
+            <p className="text-gray-400 py-1 dark:text-white hover:underline">
+              Dueño:{" "}
+              <Link
+                to={`/${producto.usuario.idUsuario}/${producto.usuario.nombreCompleto}`}
+              >
+                {producto.usuario.nombreCompleto}
+              </Link>
             </p>
             <span className="text-xl font-bold mb-4 text-gray-400 dark:text-white">
               {formatearPrecioColombiano(producto.precio)} pesos

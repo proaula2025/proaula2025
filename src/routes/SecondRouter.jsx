@@ -1,7 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import AdminPage from "./../pages/AdminPage";
 import CompanyPage from "./../pages/CompanyPage";
-import ProfilePage from "./../pages/ProfilePage";
 import FoundationPage from "./../pages/FoundationPage";
 import ChangeChats from "./../pages/ChangeChats";
 import { useContext } from "react";
@@ -25,10 +24,6 @@ const SecondRouter = () => {
     <>
       <Routes>
         <Route path="/admin" element={<AdminPage />} />
-        <Route path="/intercambio" element={<ChangeChats />} />
-        <Route path="/inicio" element={<InvitePerson />} />
-        <Route path="/sobre-nosotros" element={<AboutUs />} />
-        <Route path="/contactanos" element={<ContactUs />} />
 
         {usuarioEnLinea.tipoEntidad === "Empresa" && (
           <Route path="/empresas" element={<CompanyPage />} />
@@ -39,10 +34,8 @@ const SecondRouter = () => {
 
         {(usuarioEnLinea.tipoEntidad !== "Empresa" ||
           usuarioEnLinea.tipoEntidad !== "Fundacion") && (
-          <Route path="/Personas" element={<PersonPage />} />
+          <Route path="/personas" element={<PersonPage />} />
         )}
-
-        <Route path="/profile" element={<ProfilePage />} />
 
         <Route path="*" element={<Navigate to={redirect} />} />
       </Routes>
