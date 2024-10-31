@@ -7,7 +7,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import toast from "react-hot-toast";
 import axios from "axios";
-import Swal from "sweetalert2";
+import { ProductosContext } from "./../context/ProductsContext";
 
 const ModalProduct = ({
   isOpen,
@@ -15,8 +15,8 @@ const ModalProduct = ({
   fundacionSeleccionada,
   tipoDeProducto = "Donación",
   mensajeGuardado,
-  setProductosPersona,
 }) => {
+  const { setProductos, setProductosPersona } = useContext(ProductosContext);
   const { usuarioEnLinea } = useContext(UserContext);
   const [cargandoGuardado, setCargandoGuardado] = useState(false);
 
@@ -113,7 +113,7 @@ const ModalProduct = ({
 
     try {
       // Crear el objeto base para el envío
-      const productoData = {
+      let productoData = {
         nombreProducto: formState.nombreProducto,
         categoria: formState.categoria,
         estado: formState.estado,
@@ -126,21 +126,25 @@ const ModalProduct = ({
       };
 
       // Solo agregar empresaDono si no es una donación
-      if (tipoDeProducto === "donacion") {
-        productoData.empresaDono = {
-          idUsuario: usuarioEnLinea.idUsuario,
+      if (tipoDeProducto === "Donación") {
+        productoData = {
+          ...productoData,
+          empresaDono: {
+            idUsuario: usuarioEnLinea.idUsuario,
+          },
+          usuario: {
+            idUsuario: fundacionSeleccionada.idUsuario,
+          },
+          tipoProducto: "Donación",
         };
-
-        productoData.usuario = {
-          idUsuario: fundacionSeleccionada.idUsuario,
-        };
-
-        productoData.tipoProducto = "Donación";
       }
 
-      if (tipoDeProducto !== "donacion") {
-        productoData.usuario = {
-          idUsuario: usuarioEnLinea.idUsuario,
+      if (tipoDeProducto !== "Donación") {
+        productoData = {
+          ...productoData,
+          usuario: {
+            idUsuario: usuarioEnLinea.idUsuario,
+          },
         };
       }
 
@@ -152,17 +156,19 @@ const ModalProduct = ({
 
       if (response.data.esValido) {
         toast.success(response.data.mensaje);
+        toast.success(mensajeGuardado);
 
-        Swal.fire({
-          title: "¡Producto guardado!",
-          text: mensajeGuardado,
-          icon: "success",
-        });
-
-        setProductosPersona((productos) => [
-          ...productos,
-          response.data.productoDTO,
-        ]);
+        if (tipoDeProducto === "Donación") {
+          setProductos((productos) => [
+            ...productos,
+            response.data.productoDTO,
+          ]);
+        } else {
+          setProductosPersona((productosPersona) => [
+            ...productosPersona,
+            response.data.productoDTO,
+          ]);
+        }
 
         handleOpenModalProduct();
       } else {
@@ -171,7 +177,9 @@ const ModalProduct = ({
     } catch (error) {
       console.log(error);
 
-      toast.error("Ocurrió un error al guardar el producto." + error.mensaje);
+      toast.error(
+        "Ocurrió un error al guardar el producto." + error.response.data.mensaje
+      );
     } finally {
       toast.dismiss(loadingToast);
 
@@ -360,7 +368,6 @@ ModalProduct.propTypes = {
   fundacionSeleccionada: PropTypes.object,
   tipoDeProducto: PropTypes.string,
   mensajeGuardado: PropTypes.string,
-  setProductosPersona: PropTypes.func,
 };
 
 export default ModalProduct;

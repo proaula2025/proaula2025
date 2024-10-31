@@ -14,14 +14,23 @@ const CardProductFundacion = ({ producto, setProductos }) => {
     await new Promise((resolve) => setTimeout(resolve, 5000));
 
     try {
-      const response = await axios.put(
-        `${apiUrlBackend}/producto/${producto.idProducto}`
-      );
+      const response = await axios.put(`${apiUrlBackend}/producto`, {
+        idProducto: producto.idProducto,
+        fundacionRecogioProducto: true,
+      });
 
       if (response.data.esValido) {
         toast.success(response.data.mensaje);
 
-        setProductos((productos) => [...productos, response.data.producto]);
+        setProductos((productos) =>
+          productos.map((producto) => {
+            if (producto.idProducto === response.data.productoDTO.idProducto) {
+              return response.data.productoDTO;
+            }
+
+            return producto;
+          })
+        );
       }
     } catch (error) {
       console.log(error);

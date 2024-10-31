@@ -4,6 +4,7 @@ import AppRouter from "./routes/AppRouter";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "./context/UserContext";
 import { ProductosProvider } from "./context/ProductsContext";
+import { ReportProductsProvider } from "./context/ReportProductsContext";
 
 ReactModal.setAppElement("#root");
 
@@ -12,7 +13,9 @@ function App() {
     <BrowserRouter>
       <UserProvider>
         <ProductosProvider>
-          <AppRouter />
+          <ReportProductsProvider>
+            <AppRouter />
+          </ReportProductsProvider>
         </ProductosProvider>
       </UserProvider>
 

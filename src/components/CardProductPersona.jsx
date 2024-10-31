@@ -44,6 +44,9 @@ const CardProductPersona = ({
               Estado: {producto.estado}
             </p>
             <p className="text-gray-400 py-1 dark:text-white">
+              Cantidad: {producto.cantidad}
+            </p>
+            <p className="text-gray-400 py-1 dark:text-white">
               Estado: {producto.fecha.split("T")[0]}
             </p>
             <p className="text-gray-400 py-1 dark:text-white">
@@ -52,11 +55,16 @@ const CardProductPersona = ({
             <span className="text-xl font-bold mb-4 text-gray-400 dark:text-white">
               {formatearPrecioColombiano(producto.precio)} pesos
             </span>
+
             <button
               className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
               onClick={onComprarProducto}
+              style={{
+                backgroundColor: producto.cantidad === 0 ? "#ccc" : "",
+                cursor: producto.cantidad === 0 ? "not-allowed" : "pointer",
+              }}
             >
-              Comprar
+              {producto.cantidad !== 0 ? "Comprar" : "¡Agotado!"}
             </button>
           </div>
         </div>

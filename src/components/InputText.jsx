@@ -36,7 +36,7 @@ InputText.propTypes = {
   idLabel: PropTypes.string,
   typeInput: PropTypes.string,
   name: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func,
 };
 

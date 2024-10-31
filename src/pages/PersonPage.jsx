@@ -191,6 +191,7 @@ export const PersonPage = () => {
           handleOpenModalProduct={handleOpenModalProduct}
           mensajeGuardado="Producto guardado correctamente"
           setProductosPersona={setProductosPersona}
+          tipoDeProducto="Venta"
         />
       )}
 

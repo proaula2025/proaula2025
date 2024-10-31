@@ -57,6 +57,7 @@ const LoginAuth = () => {
                 value={formState.tipoUsuario}
                 onChange={onInputChange}
               >
+                <option value="Administracion">Administración</option>
                 <option value="Persona natural">Persona natural</option>
                 <option value="Fundacion">Fundación</option>
                 <option value="Empresa">Empresa</option>
@@ -83,7 +84,7 @@ const LoginAuth = () => {
             />
 
             <button
-              className="w-full mt-4 bg-green-500 hover:bg-green-700 duration-200 text-white font-semibold p-4 rounded"
+              className="w-full mt-4 bg-green-500 hover:bg-green-700 duration-200 text-white font-semibold p-2 rounded"
               onClick={onIniciarSesion}
             >
               Iniciar sesión

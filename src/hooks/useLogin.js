@@ -9,7 +9,7 @@ export const useLogin = () => {
   const { setEstaEnLinea, setUsuarioEnLinea } = useContext(UserContext);
   const navigate = useNavigate();
   const { formState, onInputChange } = useForm({
-    tipoUsuario: "Persona natural",
+    tipoUsuario: "Administracion",
     correo: "",
     contrasena: "",
   });
@@ -64,6 +64,8 @@ export const useLogin = () => {
           navigate("/fundaciones");
         } else if (formState.tipoUsuario === "Empresa") {
           navigate("/empresas");
+        } else {
+          navigate("/admin");
         }
       } else {
         toast.error(response.data.mensaje);
@@ -71,7 +73,9 @@ export const useLogin = () => {
     } catch (error) {
       console.log(error);
 
-      toast.error("Ocurrió un error al iniciar sesión." + error.mensaje);
+      toast.error(
+        "Ocurrió un error al iniciar sesión: " + error.response.data.mensaje
+      );
     }
   };
 

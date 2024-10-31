@@ -68,6 +68,7 @@ const Navbar = () => {
           </svg>
         </li>
         {usuarioEnLinea.tipoEntidad !== "Empresa" &&
+          usuarioEnLinea.tipoEntidad !== "Administracion" &&
           usuarioEnLinea.tipoEntidad !== "Fundacion" && (
             <li>
               <Link
@@ -89,6 +90,18 @@ const Navbar = () => {
               to="/fundaciones"
             >
               Donaciones
+            </Link>
+          </li>
+        )}
+        {usuarioEnLinea.tipoEntidad === "Administracion" && (
+          <li>
+            <Link
+              className={`text-sm hover:text-gray-500 ${isActiveLink(
+                "/admin"
+              )}`}
+              to="/admin"
+            >
+              Dashboard
             </Link>
           </li>
         )}

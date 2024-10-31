@@ -157,7 +157,9 @@ export const useRegister = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("Error al registrar el usuario: " + error);
+      toast.error(
+        "Error al registrar el usuario: " + error.response.data.mensaje
+      );
     }
   };
 
