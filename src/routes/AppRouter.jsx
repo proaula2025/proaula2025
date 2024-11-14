@@ -9,7 +9,6 @@ import { AboutUs } from "../pages/AboutUs";
 import { ContactUs } from "../pages/ContactUs";
 import { PersonPage } from "../pages/PersonPage";
 import ProfilePage from "../pages/ProfilePage";
-import ChangeChats from "../pages/ChangeChats";
 
 const AppRouter = () => {
   const { estaEnLinea } = useContext(UserContext);
@@ -27,7 +26,6 @@ const AppRouter = () => {
         )}
 
         <Route path="/:idUsuario/:nombreUsuario" element={<ProfilePage />} />
-        <Route path="/intercambio" element={<ChangeChats />} />
         <Route path="/inicio" element={<InvitePerson />} />
         <Route path="/sobre-nosotros" element={<AboutUs />} />
         <Route path="/personas" element={<PersonPage />} />

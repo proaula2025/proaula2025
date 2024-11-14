@@ -16,12 +16,12 @@ const FoundationPage = () => {
 
   return (
     <TemplateMain>
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-3 gap-2">
         <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
           <div className="flex gap-2">
             <img
-              className="w-24 rounded-full object-cover"
-              src={userPhoto}
+              className="w-24 h-24 rounded-full object-cover"
+              src={usuarioEnLinea.imageUrl || userPhoto}
               alt="Productos totales"
             />
             <div className="flex flex-col">
@@ -36,15 +36,6 @@ const FoundationPage = () => {
               </p>
             </div>
           </div>
-        </div>
-        <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
-          <div className="flex justify-between">
-            <h2 className="text-lg font-semibold">
-              Total de productos donados en toda la app
-            </h2>
-            <img className="w-8" src={productsTotal} alt="Productos totales" />
-          </div>
-          <p className="text-4xl font-bold">{productos.length}</p>
         </div>
         <div className="w-full border-2 bg-white border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
           <div className="flex justify-between">
@@ -67,26 +58,22 @@ const FoundationPage = () => {
       </div>
 
       <div className="w-full mt-6 bg-white p-4 shadow rounded-md">
-        <div className="w-full col-span-3 grid gap-4">
-          <h2 className="text-2xl font-semibold">Productos donados</h2>
-
-          <div className="w-full min-h-[35rem] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8">
-            <div className="flex items-center justify-between mb-4">
-              <h5 className="text-xl font-semibold leading-none text-[#39c962]">
-                Últimos productos donados
-              </h5>
-            </div>
-            <div className="flow-root">
-              <ul role="list" className="divide-y divide-gray-200">
-                {productos.map((producto) => (
-                  <CardProductFundacion
-                    key={producto.idProducto}
-                    producto={producto}
-                    setProductos={setProductos}
-                  />
-                ))}
-              </ul>
-            </div>
+        <div className="w-full min-h-[35rem] bg-white rounded-lg">
+          <div className="flex items-center justify-between mb-4">
+            <h5 className="text-xl font-semibold leading-none text-[#39c962]">
+              Últimos productos donados
+            </h5>
+          </div>
+          <div className="flow-root">
+            <ul role="list" className="divide-y divide-gray-200">
+              {productos.map((producto) => (
+                <CardProductFundacion
+                  key={producto.idProducto}
+                  producto={producto}
+                  setProductos={setProductos}
+                />
+              ))}
+            </ul>
           </div>
         </div>
       </div>

@@ -19,8 +19,6 @@ export const ReportProductsProvider = ({ children }) => {
       try {
         const response = await axios.get(apiUrlBackend + "/compraProductos");
 
-        console.log(response);
-
         setRegistroProductos(response.data.listaCompraProductos);
       } catch (error) {
         console.log(error);

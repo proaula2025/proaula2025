@@ -5,10 +5,7 @@ import FoundationPage from "./../pages/FoundationPage";
 import ChangeChats from "./../pages/ChangeChats";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import InvitePerson from "../pages/InvitePerson";
-import { AboutUs } from "../pages/AboutUs";
 import { PersonPage } from "../pages/PersonPage";
-import { ContactUs } from "../pages/ContactUs";
 
 const SecondRouter = () => {
   const { usuarioEnLinea } = useContext(UserContext);
@@ -35,6 +32,10 @@ const SecondRouter = () => {
         {(usuarioEnLinea.tipoEntidad !== "Empresa" ||
           usuarioEnLinea.tipoEntidad !== "Fundacion") && (
           <Route path="/personas" element={<PersonPage />} />
+        )}
+
+        {usuarioEnLinea.tipoEntidad === "Persona natural" && (
+          <Route path="/chats-intercambio" element={<ChangeChats />} />
         )}
 
         <Route path="*" element={<Navigate to={redirect} />} />

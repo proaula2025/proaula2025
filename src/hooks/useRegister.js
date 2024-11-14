@@ -39,23 +39,33 @@ export const useRegister = () => {
     correo,
     contrasena,
   }) => {
-    const errores = {};
-
     if (imagenSeleccionada === null) {
-      errores.imagen = "La imagen es obligatoria";
+      toast.error("La imagen es obligatoria.");
+      return false;
     }
 
     // Validar que no estén vacíos
     if (!tipoUsuario || tipoUsuario.trim() === "") {
-      errores.tipoUsuario = "El tipo de usuario es obligatorio.";
+      toast.error("El tipo de usuario es obligatorio.");
+      return false;
     }
 
     if (!nombre || nombre.trim() === "") {
-      errores.nombre = "El nombre es obligatorio.";
+      toast.error("El nombre es obligatorio.");
+      return false;
     }
 
     if (!tipoDocumento || tipoDocumento.trim() === "") {
-      errores.tipoDocumento = "El tipo de documento es obligatorio.";
+      toast.error("El tipo de documento es obligatorio.");
+      return false;
+    } else if (tipoUsuario !== "Empresa" && tipoDocumento === "NIT") {
+      toast.error(
+        "El tipo de documento NIT no es válido para una persona natural o fundación."
+      );
+      return false;
+    } else if (tipoUsuario === "Empresa" && tipoDocumento === "Cedula") {
+      toast.error("El tipo de documento Cedula no es válido para una empresa.");
+      return false;
     }
 
     if (
@@ -63,32 +73,38 @@ export const useRegister = () => {
       Number(numeroDocumento) <= 0 ||
       numeroDocumento.trim() === ""
     ) {
-      errores.numeroDocumento = "El número de documento es obligatorio.";
+      toast.error("El número de documento es obligatorio.");
+      return false;
     } else if (!/^\d+$/.test(numeroDocumento)) {
-      errores.numeroDocumento =
-        "El número de documento debe contener solo números.";
+      toast.error("El número de documento debe contener solo números.");
+      return false;
     }
 
     if (!telefono || Number(telefono) <= 0 || telefono.trim() === "") {
-      errores.telefono = "El teléfono es obligatorio.";
+      toast.error("El teléfono es obligatorio.");
+      return false;
     } else if (!/^\d+$/.test(telefono)) {
-      errores.telefono = "El teléfono debe contener solo números.";
+      toast.error("El teléfono debe contener solo números.");
+      return false;
     }
 
     if (!correo || correo.trim() === "") {
-      errores.correo = "El correo es obligatorio.";
+      toast.error("El correo es obligatorio.");
+      return false;
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
-      errores.correo = "El formato del correo es incorrecto.";
+      toast.error("El correo no es válido.");
+      return false;
     }
 
     if (!contrasena || contrasena.trim() === "") {
-      errores.contrasena = "La contraseña es obligatoria.";
+      toast.error("La contraseña es obligatoria.");
+      return false;
     } else if (contrasena.length < 8) {
-      errores.contrasena = "La contraseña debe tener al menos 8 caracteres.";
+      toast.error("La contraseña debe tener al menos 8 caracteres.");
+      return false;
     }
 
-    // Retornar los errores (si hay)
-    return errores;
+    return true;
   };
 
   const onGuardarUsuario = async (e) => {
@@ -104,8 +120,7 @@ export const useRegister = () => {
       contrasena,
     });
 
-    if (Object.keys(errores).length > 0)
-      return Object.values(errores).map((error) => toast.error(error));
+    if (!errores) return;
 
     try {
       const url = "http://localhost:9999/api/registrar";
@@ -128,14 +143,11 @@ export const useRegister = () => {
           ],
           { type: "application/json" }
         )
-      ); // Especificar el tipo de contenido
-      formData.append("file", imagenSeleccionada); // Agregar el archivo seleccionado
+      );
 
-      const response = await axios.post(url, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data", // Asegúrate de que el tipo de contenido sea correcto
-        },
-      });
+      formData.append("file", imagenSeleccionada);
+
+      const response = await axios.post(url, formData);
 
       if (response.data.esValido) {
         toast.success("Usuario registrado correctamente en la base de datos");
@@ -144,8 +156,6 @@ export const useRegister = () => {
           "usuarioActivo",
           JSON.stringify(response.data.usuario)
         );
-
-        // http://localhost:9999/images/1730177260068_fondo.png
 
         setEstaEnLinea(true);
         setUsuarioEnLinea(response.data.usuario);

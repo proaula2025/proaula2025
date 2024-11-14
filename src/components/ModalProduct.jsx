@@ -342,14 +342,14 @@ const ModalProduct = ({
 
         <div className="flex items-center justify-between gap-4">
           <button
-            className="w-full py-3 mt-5 font-semibold text-white bg-blue-600 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-300"
+            className="w-full py-3 mt-5 font-semibold text-white bg-green-600 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-300"
             type="submit"
             disabled={cargandoGuardado}
           >
             {cargandoGuardado ? "Guardando..." : "Guardar producto"}
           </button>
           <button
-            className="w-full py-3 mt-5 font-semibold text-white bg-red-600 rounded-lg focus:outline-none focus:ring-4 focus:ring-red-300"
+            className="w-full py-3 mt-5 font-semibold text-black bg-gray-200 rounded-lg focus:outline-none focus:ring-4 focus:ring-gray-300"
             type="button"
             disabled={cargandoGuardado}
             onClick={handleOpenModalProduct}

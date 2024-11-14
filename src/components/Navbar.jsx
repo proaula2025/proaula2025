@@ -1,10 +1,11 @@
 import { useContext } from "react";
-import { imagenNav, userPhoto } from "../images";
+import { imagenNav } from "../images";
 import { UserContext } from "./../context/UserContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
+import { NavbarUser } from "./NavbarUser";
 
 const Navbar = () => {
-  const { estaEnLinea, cerrarSesion, usuarioEnLinea } = useContext(UserContext);
+  const { estaEnLinea, usuarioEnLinea } = useContext(UserContext);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -81,6 +82,34 @@ const Navbar = () => {
               </Link>
             </li>
           )}
+        <li className="text-gray-300">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            stroke="currentColor"
+            className="w-4 h-4 current-fill"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 5v0m0 7v0m0 7v0m0-13a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+            />
+          </svg>
+        </li>
+        {usuarioEnLinea.tipoEntidad === "Persona natural" && (
+          <li>
+            <Link
+              className={`text-sm hover:text-gray-500 ${isActiveLink(
+                "/chats-intercambio"
+              )}`}
+              to="/chats-intercambio"
+            >
+              Chats
+            </Link>
+          </li>
+        )}
         {usuarioEnLinea.tipoEntidad === "Fundacion" && (
           <li>
             <Link
@@ -162,25 +191,7 @@ const Navbar = () => {
         </>
       )}
 
-      {estaEnLinea && (
-        <div className="flex items-center gap-2">
-          <Link
-            to={`/${usuarioEnLinea.idUsuario}/${usuarioEnLinea.nombreCompleto}`}
-          >
-            <img
-              className="w-8 h-8 rounded-full cursor-pointer"
-              src={userPhoto}
-              alt="Imagen de perfil"
-            />
-          </Link>
-          <button
-            className="hidden lg:inline-block py-2 px-6 bg-[#39c962] hover:bg-green-600 text-sm text-white font-bold rounded-xl transition duration-200"
-            onClick={cerrarSesion}
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      )}
+      {estaEnLinea && <NavbarUser />}
     </nav>
   );
 };

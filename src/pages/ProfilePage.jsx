@@ -39,8 +39,6 @@ const ProfilePage = () => {
         return;
       }
 
-      console.log(usuarioEncontradoPerfil.tipoEntidad);
-
       try {
         const apiCompleta =
           usuarioEncontradoPerfil.tipoEntidad === "Administrador"
@@ -62,8 +60,6 @@ const ProfilePage = () => {
     getProductosComprados();
   }, [idUsuario, usuarioEncontradoPerfil.tipoEntidad, estaEnLinea]);
 
-  console.log(productosComprados);
-
   return (
     <TemplateMain>
       <section className="w-full relative">
@@ -72,7 +68,7 @@ const ProfilePage = () => {
         <div className="rounded-full mx-auto border-white pt-56">
           <figure className="flex gap-7 items-center pl-10">
             <img
-              src={userPhoto}
+              src={usuarioEncontradoPerfil.imageUrl || userPhoto}
               alt="user"
               className="w-52 h-52 rounded-full shadow-2xl border-4 border-white"
             />

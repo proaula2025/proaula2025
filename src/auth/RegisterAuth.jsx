@@ -166,7 +166,7 @@ const RegisterAuth = () => {
                 >
                   <option value="">Selecciona</option>
                   <option value="Cedula">Cedula</option>
-                  <option value="Nit">Nit</option>
+                  <option value="NIT">Nit</option>
                 </select>
               </div>
               <InputText
