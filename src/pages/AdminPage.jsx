@@ -33,10 +33,10 @@ const AdminPage = () => {
     <TemplateMain>
       <section>
         <div className="flex flex-col items-center justify-center py-10 gap-2">
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-5xl font-bold text-gray-900">
             Dashboard administrativo
           </h1>
-          <p className="text-lg text-gray-700 dark:text-gray-400">
+          <p className="text-lg text-gray-700">
             Esta es la página de administración. Puede ver la actividad de los
             usuarios en la plataforma.
           </p>

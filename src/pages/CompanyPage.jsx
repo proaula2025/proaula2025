@@ -49,7 +49,7 @@ const CompanyPage = () => {
 
       <div className="flex items-center justify-center pt-5">
         <input
-          className="w-[50%] h-14 bg-stone-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          className="w-[50%] h-14 bg-stone-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
           placeholder="Buscar una fundación..."
         />
       </div>
@@ -57,28 +57,28 @@ const CompanyPage = () => {
       <div className="flex items-center gap-4 pt-10">
         {listaFundaciones.map((fundacion) => (
           <div
-            className="max-w-sm bg-[#ffffff47] border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+            className="max-w-sm bg-[#ffffff47] border border-gray-200 rounded-lg shadow"
             key={fundacion.idUsuario}
           >
             <a href="#">
               <img className="rounded-t-lg" src={backCompany} alt="" />
             </a>
             <div className="p-5 grid gap-2">
-              <h5 className="mb-2 text-4xl font-bold tracking-tight text-gray-900 dark:text-white">
+              <h5 className="mb-2 text-4xl font-bold tracking-tight text-gray-900">
                 {fundacion.nombreCompleto}
               </h5>
-              <p className=" font-normal text-gray-700 dark:text-gray-400">
+              <p className=" font-normal text-gray-700">
                 Here are the biggest enterprise technology acquisitions of 2021
                 so far, in reverse chronological order.
               </p>
-              <p className=" font-normal text-gray-700 dark:text-gray-400">
+              <p className=" font-normal text-gray-700">
                 Correo: {fundacion.email}
               </p>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              <p className="mb-3 font-normal text-gray-700">
                 Telefono: {fundacion.telefono}
               </p>
               <button
-                className="px-3 py-3 text-sm font-medium text-white bg-[#39c962] hover:bg-green-700 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="px-3 py-3 text-sm font-medium text-white bg-[#39c962] hover:bg-green-700 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300"
                 onClick={() => handleOpenModalProduct(fundacion)}
               >
                 Donar ahora

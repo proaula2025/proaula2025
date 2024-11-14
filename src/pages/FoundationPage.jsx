@@ -28,10 +28,10 @@ const FoundationPage = () => {
               <h2 className="text-lg font-semibold">
                 {usuarioEnLinea.nombreCompleto}
               </h2>
-              <p className="text-base text-gray-500 truncate dark:text-gray-400">
+              <p className="text-base text-gray-500 truncate">
                 {usuarioEnLinea.email}
               </p>
-              <p className="text-base text-gray-500 truncate dark:text-gray-400">
+              <p className="text-base text-gray-500 truncate">
                 {usuarioEnLinea.telefono}
               </p>
             </div>
@@ -70,17 +70,14 @@ const FoundationPage = () => {
         <div className="w-full col-span-3 grid gap-4">
           <h2 className="text-2xl font-semibold">Productos donados</h2>
 
-          <div className="w-full min-h-[35rem] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <div className="w-full min-h-[35rem] p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8">
             <div className="flex items-center justify-between mb-4">
-              <h5 className="text-xl font-semibold leading-none text-[#39c962] dark:text-white">
+              <h5 className="text-xl font-semibold leading-none text-[#39c962]">
                 Últimos productos donados
               </h5>
             </div>
             <div className="flow-root">
-              <ul
-                role="list"
-                className="divide-y divide-gray-200 dark:divide-gray-700"
-              >
+              <ul role="list" className="divide-y divide-gray-200">
                 {productos.map((producto) => (
                   <CardProductFundacion
                     key={producto.idProducto}

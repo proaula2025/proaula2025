@@ -44,25 +44,25 @@ const CardProductFundacion = ({ producto, setProductos }) => {
       <li className="py-3 p-4 border rounded-md">
         <div className="flex items-center">
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+            <p className="text-sm font-medium text-gray-900 truncate">
               {producto.nombreProducto}
             </p>
-            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+            <p className="text-sm text-gray-500 truncate">
               Correo:{producto.empresaDono.email}
             </p>
-            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+            <p className="text-sm text-gray-500 truncate">
               Categoria: {producto.categoria}
             </p>
-            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+            <p className="text-sm text-gray-500 truncate">
               Fecha de entrega: {producto.fecha.split("T")[0]}
             </p>
-            <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+            <p className="text-sm text-gray-500 truncate">
               {producto.descripcion}
             </p>
           </div>
-          <div className="text-base font-semibold text-gray-900 dark:text-white">
+          <div className="text-base font-semibold text-gray-900">
             <button
-              className="text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
               onClick={onRecogerProducto}
               style={
                 producto.fundacionRecogioProducto

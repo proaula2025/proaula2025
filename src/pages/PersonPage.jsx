@@ -67,10 +67,10 @@ export const PersonPage = () => {
     <TemplateMain>
       <section className="">
         <div>
-          <h1 className="text-5xl mb-4 m-0 font-bold text-gray-900 dark:text-white">
+          <h1 className="text-5xl mb-4 m-0 font-bold text-gray-900">
             Descubre productos
           </h1>
-          <p className="text-lg text-gray-700 w-[60rem] dark:text-gray-400 mb-5">
+          <p className="text-lg text-gray-700 w-[60rem] mb-5">
             Encuentra una gran variedad de productos que otras personas están
             vendiendo o intercambiando. ¡Desde artículos de colección hasta
             gadgets de última tecnología, lo que buscas está a solo un clic!
@@ -90,13 +90,13 @@ export const PersonPage = () => {
           <div>
             <label
               htmlFor="category"
-              className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-medium text-gray-900"
             >
               Categoria
             </label>
             <select
               id="category"
-              className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+              className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-green-500 focus:border-green-500"
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
             >
@@ -111,13 +111,13 @@ export const PersonPage = () => {
           <div>
             <label
               htmlFor="estado"
-              className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-medium text-gray-900"
             >
               Estado
             </label>
             <select
               id="estado"
-              className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-blue-500 focus:border-blue-500"
               value={selectedEstado}
               onChange={(e) => setSelectedEstado(e.target.value)}
             >
@@ -132,13 +132,13 @@ export const PersonPage = () => {
           <div>
             <label
               htmlFor="tipo"
-              className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-medium text-gray-900"
             >
               Tipo de producto
             </label>
             <select
               id="tipo"
-              className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="cursor-pointer block w-full px-4 py-[0.55rem] text-base text-gray-900 border border-gray-300 rounded-lg bg-[#ffffff47] focus:ring-blue-500 focus:border-blue-500"
               value={selectedTipo}
               onChange={(e) => setSelectedTipo(e.target.value)}
             >
@@ -162,12 +162,12 @@ export const PersonPage = () => {
       </section>
 
       <button
-        className="fixed bottom-6 right-6 p-4 font-medium text-white bg-green-500 hover:bg-green-700 duration-150 rounded-full focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:focus:ring-green-800"
+        className="fixed bottom-6 right-6 p-4 font-medium text-white bg-green-500 hover:bg-green-700 duration-150 rounded-full focus:ring-4 focus:outline-none focus:ring-green-300"
         type="button"
         onClick={handleOpenModalProduct}
       >
         <svg
-          className="w-6 h-6 text-white dark:text-white"
+          className="w-6 h-6 text-white"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"

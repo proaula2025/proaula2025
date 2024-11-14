@@ -47,9 +47,11 @@ const ProfilePage = () => {
             ? apiUrlBackend + "/compraProductos"
             : `${apiUrlBackend}/usuario/${idUsuario}`;
 
-        console.log(apiCompleta);
-
         const response = await axios.get(apiCompleta);
+
+        if (!response.data.esValido) {
+          return;
+        }
 
         setProductosComprados(response.data.listaCompraProductos);
       } catch (error) {

@@ -31,14 +31,14 @@ export const ContactUs = () => {
             <div>
               <label
                 htmlFor="reason"
-                className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-medium text-gray-900"
               >
                 Razón del mensaje
               </label>
               <select
                 name="reason"
                 id="reason"
-                className="bg-stone-100 border border-gray-300 duration-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                className="bg-stone-100 border border-gray-300 duration-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
               >
                 <option value="question">Pregunta</option>
                 <option value="suggestion">Sugerencia</option>
@@ -50,7 +50,7 @@ export const ContactUs = () => {
             <div>
               <label
                 htmlFor="message"
-                className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-medium text-gray-900"
               >
                 Mensaje
               </label>
@@ -58,7 +58,7 @@ export const ContactUs = () => {
                 name="message"
                 id="message"
                 placeholder="Escribe tu mensaje aquí..."
-                className="resize-none h-56 bg-stone-100 border border-gray-300 duration-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                className="resize-none h-56 bg-stone-100 border border-gray-300 duration-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
               />
             </div>
 

@@ -17,7 +17,7 @@ const LoginAuth = () => {
         className="w-44 absolute top-4 left-6 text-lg flex gap-2 items-center text-green-500 cursor-pointer"
       >
         <svg
-          className="w-6 h-6 text-gray-500 dark:text-white"
+          className="w-6 h-6 text-gray-500"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -47,12 +47,12 @@ const LoginAuth = () => {
             <div>
               <label
                 htmlFor="first_name"
-                className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-base font-medium text-gray-900"
               >
                 Tipo de usuario
               </label>
               <select
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                 name="tipoUsuario"
                 value={formState.tipoUsuario}
                 onChange={onInputChange}

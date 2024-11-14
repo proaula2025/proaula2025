@@ -190,7 +190,7 @@ const ModalProduct = ({
   return (
     <ReactModal
       isOpen={isOpen}
-      className="w-[95%] max-w-[35rem] p-5 mx-auto my-10 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:text-white"
+      className="w-[95%] max-w-[35rem] p-5 mx-auto my-10 bg-white rounded-lg shadow-lg"
       overlayClassName="fixed inset-0 z-50 bg-black bg-opacity-50 overflow-y-auto"
       onRequestClose={handleOpenModalProduct}
     >
@@ -198,7 +198,7 @@ const ModalProduct = ({
         <h2 className="text-2xl font-medium text-center uppercase pt-3 font-antonioSC tracking-wider">
           Un pequeño gesto, un gran cambio
         </h2>
-        <p className="text-center text-gray-700 dark:text-gray-400">
+        <p className="text-center text-gray-700">
           El producto que dones será de gran ayuda para las personas que lo
           necesitan.
         </p>
@@ -219,13 +219,13 @@ const ModalProduct = ({
           <div>
             <label
               htmlFor="tarjeta"
-              className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-medium text-gray-900"
             >
               Categoria del producto
             </label>
             <select
               name="categoria"
-              className="w-full p-2.5 mt-1 border bg-stone-100 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-full p-2.5 mt-1 border bg-stone-100 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
               value={formState.categoria}
               onChange={onInputChange}
             >
@@ -243,14 +243,14 @@ const ModalProduct = ({
           <div>
             <label
               htmlFor="estado"
-              className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-medium text-gray-900"
             >
               Estado del producto
             </label>
             <select
               id="estado"
               name="estado"
-              className="w-full p-2.5 mt-1 border bg-stone-100 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-full p-2.5 mt-1 border bg-stone-100 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
               value={formState.estado}
               onChange={onInputChange}
             >
@@ -304,14 +304,14 @@ const ModalProduct = ({
           <div>
             <label
               htmlFor="tipoProducto"
-              className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+              className="block mb-2 text-base font-medium text-gray-900"
             >
               Acción del producto
             </label>
             <select
               id="tipoProducto"
               name="tipoProducto"
-              className="w-full p-2.5 mt-1 border bg-stone-100 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className="w-full p-2.5 mt-1 border bg-stone-100 border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
               value={formState.tipoProducto}
               onChange={onInputChange}
             >
@@ -326,13 +326,13 @@ const ModalProduct = ({
 
         <div>
           <label
-            className="block mb-2 text-base font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-base font-medium text-gray-900"
             htmlFor="tarjeta"
           >
             Descripción del producto
           </label>
           <textarea
-            className="w-full h-32 p-2.5 mt-1 border bg-stone-100 resize-none border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="w-full h-32 p-2.5 mt-1 border bg-stone-100 resize-none border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 block"
             placeholder="Juguetes para que los niños se recreen..."
             name="descripcion"
             value={formState.descripcion}

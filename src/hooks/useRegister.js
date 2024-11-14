@@ -1,7 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useForm } from "./useForm";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { UserContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ export const useRegister = () => {
   const { setEstaEnLinea, setUsuarioEnLinea } = useContext(UserContext);
   const navigate = useNavigate();
   const [imagenSeleccionada, setImagenSeleccionada] = useState(null);
+  const inputFileRef = useRef(null);
 
   const {
     tipoUsuario,
@@ -167,8 +168,9 @@ export const useRegister = () => {
     }
   };
 
-  const handleFileChange = (e) => {
-    setImagenSeleccionada(e.target.files[0]);
+  const handleFileChange = () => {
+    const file = inputFileRef.current.files[0];
+    setImagenSeleccionada(file);
   };
 
   return {
@@ -183,5 +185,6 @@ export const useRegister = () => {
     onGuardarUsuario,
     handleFileChange,
     imagenSeleccionada,
+    inputFileRef,
   };
 };
