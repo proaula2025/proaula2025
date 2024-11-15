@@ -232,7 +232,7 @@ const ChangeChats = () => {
                   </g>
                 </svg>
                 <h3 className="text-white text-xs font-semibold leading-4 px-2">
-                  Send
+                  Envia
                 </h3>
               </button>
             </div>

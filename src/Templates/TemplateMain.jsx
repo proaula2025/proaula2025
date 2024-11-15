@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import PropTypes from "prop-types";
 import Footer from "./../components/Footer";
+import { RatingApp } from "../components/RatingApp";
 
 const TemplateMain = ({ children }) => {
   return (
@@ -10,6 +11,13 @@ const TemplateMain = ({ children }) => {
       <section className="w-full m-auto pt-3">{children}</section>
 
       <Footer />
+
+      <RatingApp
+        stylesButton={{
+          bottom: "6rem",
+          right: "1.8rem",
+        }}
+      />
     </main>
   );
 };

@@ -63,20 +63,6 @@ const CompanyPage = () => {
           </div>
 
           <div className="pt-10 grid gap-6">
-            <h3 className="text-2xl font-medium text-black">Nuestra misión</h3>
-
-            <p className="text-lg text-[#374151]">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-              eveniet fuga natus quod expedita! Voluptas repellat nam soluta
-              aliquid qui, neque totam. Quos praesentium molestias sequi omnis
-              numquam eius quod, quibusdam, quia, voluptates quae. Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. <br />
-              <br /> Delectus eveniet fuga natus quod expedita! Voluptas
-              repellat nam soluta aliquid qui, neque totam. Quos praesentium
-              molestias sequi omnis numquam eius quod, quibusdam, quia,
-              voluptates quae.
-            </p>
-
             <div className="grid gap-4">
               <h3 className="text-2xl font-medium text-[#374151] border-b pb-6">
                 Un pequeño gesto, un gran cambio

@@ -162,7 +162,7 @@ export const PersonPage = () => {
       </section>
 
       <button
-        className="fixed bottom-6 right-6 p-4 font-medium text-white bg-green-500 hover:bg-green-700 duration-150 rounded-full focus:ring-4 focus:outline-none focus:ring-green-300"
+        className="fixed bottom-[4.7rem] right-4 p-4 font-medium text-white bg-green-500 hover:bg-green-700 duration-150 rounded-full focus:ring-4 focus:outline-none focus:ring-green-300"
         type="button"
         onClick={handleOpenModalProduct}
       >
