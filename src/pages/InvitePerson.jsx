@@ -94,7 +94,7 @@ const InvitePerson = () => {
               </svg>
             </div>
             <blockquote>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-2xl font-semibold text-gray-900">
                 Flowbite is just awesome. It contains tons of predesigned
                 components and pages starting from login screen
               </p>
@@ -105,11 +105,11 @@ const InvitePerson = () => {
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
                 alt="profile picture"
               />
-              <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300 dark:divide-gray-700">
-                <cite className="pe-3 font-medium text-gray-900 dark:text-white">
+              <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300">
+                <cite className="pe-3 font-medium text-gray-900">
                   Bonnie Green
                 </cite>
-                <cite className="ps-3 text-sm text-gray-500 dark:text-gray-400">
+                <cite className="ps-3 text-sm text-gray-500">
                   CTO at Flowbite
                 </cite>
               </div>
@@ -164,7 +164,7 @@ const InvitePerson = () => {
               </svg>
             </div>
             <blockquote>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-2xl font-semibold text-gray-900">
                 to complex dashboard. Perfect choice for your next SaaS
                 application.
               </p>
@@ -175,11 +175,11 @@ const InvitePerson = () => {
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
                 alt="profile picture"
               />
-              <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300 dark:divide-gray-700">
-                <cite className="pe-3 font-medium text-gray-900 dark:text-white">
+              <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300">
+                <cite className="pe-3 font-medium text-gray-900">
                   Bonnie Green
                 </cite>
-                <cite className="ps-3 text-sm text-gray-500 dark:text-gray-400">
+                <cite className="ps-3 text-sm text-gray-500">
                   CTO at Flowbite
                 </cite>
               </div>
@@ -234,7 +234,7 @@ const InvitePerson = () => {
               </svg>
             </div>
             <blockquote>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-2xl font-semibold text-gray-900">
                 and pages starting from login screen to complex dashboard.
                 Perfect choice for your next SaaS application.
               </p>
@@ -245,11 +245,11 @@ const InvitePerson = () => {
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
                 alt="profile picture"
               />
-              <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300 dark:divide-gray-700">
-                <cite className="pe-3 font-medium text-gray-900 dark:text-white">
+              <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300">
+                <cite className="pe-3 font-medium text-gray-900">
                   Bonnie Green
                 </cite>
-                <cite className="ps-3 text-sm text-gray-500 dark:text-gray-400">
+                <cite className="ps-3 text-sm text-gray-500">
                   CTO at Flowbite
                 </cite>
               </div>
@@ -304,7 +304,7 @@ const InvitePerson = () => {
               </svg>
             </div>
             <blockquote>
-              <p className="text-2xl font-semibold text-gray-900 dark:text-white">
+              <p className="text-2xl font-semibold text-gray-900">
                 Flowbite is just awesome. It contains tons of predesigned
                 components and pages starting from login screen to complex
                 dashboard. Perfect choice for your next SaaS application.
@@ -316,11 +316,11 @@ const InvitePerson = () => {
                 src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
                 alt="profile picture"
               />
-              <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300 dark:divide-gray-700">
-                <cite className="pe-3 font-medium text-gray-900 dark:text-white">
+              <div className="flex items-center divide-x-2 rtl:divide-x-reverse divide-gray-300">
+                <cite className="pe-3 font-medium text-gray-900">
                   Bonnie Green
                 </cite>
-                <cite className="ps-3 text-sm text-gray-500 dark:text-gray-400">
+                <cite className="ps-3 text-sm text-gray-500">
                   CTO at Flowbite
                 </cite>
               </div>

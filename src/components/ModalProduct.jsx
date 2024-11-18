@@ -1,13 +1,9 @@
 import ReactModal from "react-modal";
 import { categoryProducts, stateProducts } from "../helpers/productsHelpers";
 import InputText from "./InputText";
-import { useForm } from "./../hooks/useForm";
 import { PropTypes } from "prop-types";
-import { useContext, useState } from "react";
-import { UserContext } from "../context/UserContext";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { ProductosContext } from "./../context/ProductsContext";
+import { backCompany } from "../images";
+import { useModalProduct } from "../hooks";
 
 const ModalProduct = ({
   isOpen,
@@ -16,176 +12,21 @@ const ModalProduct = ({
   tipoDeProducto = "Donación",
   mensajeGuardado,
 }) => {
-  const { setProductos, setProductosPersona } = useContext(ProductosContext);
-  const { usuarioEnLinea } = useContext(UserContext);
-  const [cargandoGuardado, setCargandoGuardado] = useState(false);
-
-  const { formState, onInputChange } = useForm({
-    nombreProducto: "",
-    categoria: "",
-    estado: "",
-    direccion: "",
-    cantidad: "",
-    precio: "",
-    descripcion: "",
-    tipoProducto: "",
+  const {
+    cargandoGuardado,
+    formState,
+    onGuardarProducto,
+    onInputChange,
+    usuarioEnLinea,
+    handleFileChange,
+    imagenSeleccionada,
+    inputFileRef,
+  } = useModalProduct({
+    fundacionSeleccionada,
+    handleOpenModalProduct,
+    mensajeGuardado,
+    tipoDeProducto,
   });
-
-  const validateForm = (formState) => {
-    const errors = {};
-
-    if (!formState.nombreProducto || formState.nombreProducto.length < 3) {
-      errors.nombreProducto =
-        "El nombre del producto es obligatorio y debe tener al menos 3 caracteres.";
-    }
-
-    if (!formState.categoria) {
-      errors.categoria = "La categoría es obligatoria.";
-    }
-
-    if (!formState.estado) {
-      errors.estado = "El estado es obligatorio.";
-    }
-
-    if (!formState.direccion || formState.direccion.length < 5) {
-      errors.direccion =
-        "La dirección es obligatoria y debe tener al menos 5 caracteres.";
-    }
-
-    if (
-      !formState.cantidad ||
-      isNaN(formState.cantidad) ||
-      formState.cantidad <= 0
-    ) {
-      errors.cantidad =
-        "La cantidad es obligatoria y debe ser un número positivo.";
-    }
-
-    if (usuarioEnLinea.tipoEntidad !== "Empresa") {
-      if (
-        !formState.precio ||
-        isNaN(formState.precio) ||
-        formState.precio <= 0
-      ) {
-        errors.precio =
-          "El precio es obligatorio y debe ser un número positivo.";
-      }
-    }
-
-    if (usuarioEnLinea.tipoEntidad !== "Empresa") {
-      if (!formState.tipoProducto) {
-        errors.tipoProducto = "El tipo de producto es obligatorio.";
-      }
-    }
-
-    if (formState.descripcion && formState.descripcion.length > 250) {
-      errors.descripcion =
-        "La descripción no puede exceder los 250 caracteres.";
-    }
-
-    return errors;
-  };
-
-  const onGuardarProducto = async (e) => {
-    e.preventDefault();
-
-    const errors = validateForm(formState);
-
-    if (Object.keys(errors).length > 0)
-      return Object.values(errors).map((error) => toast.error(error));
-
-    setCargandoGuardado(true);
-
-    const loadingToast = toast.loading("Guardando producto...", {
-      duration: 6000,
-      style: {
-        border: "1px solid #0a74da",
-        padding: "16px",
-        color: "#0a74da",
-      },
-      iconTheme: {
-        primary: "#0a74da",
-        secondary: "#fff",
-      },
-    });
-
-    await new Promise((resolve) => setTimeout(resolve, 6000));
-
-    try {
-      // Crear el objeto base para el envío
-      let productoData = {
-        nombreProducto: formState.nombreProducto,
-        categoria: formState.categoria,
-        estado: formState.estado,
-        direccionRecogida: formState.direccion,
-        cantidad: formState.cantidad,
-        precio: formState.precio,
-        descripcion: formState.descripcion,
-        fecha: new Date(),
-        tipoProducto: formState.tipoProducto,
-      };
-
-      // Solo agregar empresaDono si no es una donación
-      if (tipoDeProducto === "Donación") {
-        productoData = {
-          ...productoData,
-          empresaDono: {
-            idUsuario: usuarioEnLinea.idUsuario,
-          },
-          usuario: {
-            idUsuario: fundacionSeleccionada.idUsuario,
-          },
-          tipoProducto: "Donación",
-        };
-      }
-
-      if (tipoDeProducto !== "Donación") {
-        productoData = {
-          ...productoData,
-          usuario: {
-            idUsuario: usuarioEnLinea.idUsuario,
-          },
-        };
-      }
-
-      // Realizar la solicitud POST
-      const response = await axios.post(
-        "http://localhost:9999/api/producto",
-        productoData
-      );
-
-      if (response.data.esValido) {
-        toast.success(response.data.mensaje);
-        toast.success(mensajeGuardado);
-
-        if (tipoDeProducto === "Donación") {
-          setProductos((productos) => [
-            ...productos,
-            response.data.productoDTO,
-          ]);
-        } else {
-          setProductosPersona((productosPersona) => [
-            ...productosPersona,
-            response.data.productoDTO,
-          ]);
-        }
-
-        handleOpenModalProduct();
-      } else {
-        toast.error(response.data.mensaje);
-      }
-    } catch (error) {
-      console.log(error);
-
-      toast.error(
-        "Ocurrió un error al guardar el producto." + error.response.data.mensaje
-      );
-    } finally {
-      toast.dismiss(loadingToast);
-
-      setCargandoGuardado(false);
-    }
-  };
 
   return (
     <ReactModal
@@ -205,6 +46,63 @@ const ModalProduct = ({
       </div>
 
       <form className="grid gap-2" onSubmit={onGuardarProducto}>
+        <div>
+          <label
+            htmlFor="first_name"
+            className="block mb-2 text-base font-medium text-gray-900"
+          >
+            Foto del producto
+          </label>
+
+          <div className="flex items-center justify-center w-full">
+            <figure className="relative">
+              <img
+                className="w-full rounded-xl shadow-xl"
+                src={
+                  imagenSeleccionada
+                    ? URL.createObjectURL(imagenSeleccionada)
+                    : backCompany
+                }
+                alt="image description"
+              />
+
+              <svg
+                className="w-10 h-10 p-2 shadow-lg bg-white rounded-full text-gray-800 absolute bottom-2 right-6 cursor-pointer"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+                onClick={() => {
+                  inputFileRef.current.click();
+                }}
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 18V8a1 1 0 0 1 1-1h1.5l1.707-1.707A1 1 0 0 1 8.914 5h6.172a1 1 0 0 1 .707.293L17.5 7H19a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"
+                />
+                <path
+                  stroke="currentColor"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
+
+              <input
+                type="file"
+                ref={inputFileRef}
+                onChange={handleFileChange}
+                accept="image/*"
+                className="hidden"
+              />
+            </figure>
+          </div>
+        </div>
+
         <InputText
           label="Nombre del producto"
           placeholder="Bicicleta o Closet..."

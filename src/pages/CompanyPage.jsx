@@ -86,6 +86,22 @@ const CompanyPage = () => {
                   <span className="text-lg text-[#374151]">Productos</span>
                 </div>
               </div>
+
+              <div className="w-full">
+                <h2 className="text-4xl font-medium pt-3">
+                  Encuentra una empresa
+                </h2>
+
+                <div className="flex items-center pt-5">
+                  <input
+                    className="w-[70%] h-14 bg-stone-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
+                    placeholder="Buscar una fundación..."
+                    type="text"
+                    value={searchFundation}
+                    onChange={(e) => setSearchFundation(e.target.value)}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </article>
@@ -104,21 +120,10 @@ const CompanyPage = () => {
           </div>
         </article>
 
-        <article className="col-span-2 pt-20">
-          <h2 className="text-4xl font-medium text-center pt-3">
-            Encuentra una empresa
+        <article className="col-span-2 pt-12">
+          <h2 className="text-4xl font-medium text-[#374151] border-b pb-6">
+            Fundaciones
           </h2>
-
-          <div className="flex items-center justify-center pt-5">
-            <input
-              className="w-[50%] h-14 bg-stone-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5"
-              placeholder="Buscar una fundación..."
-              type="text"
-              value={searchFundation}
-              onChange={(e) => setSearchFundation(e.target.value)}
-            />
-          </div>
-
           <div className="flex items-center gap-4 pt-10">
             {listaFundacionesFiltradas.map((fundation) => (
               <div

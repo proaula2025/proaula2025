@@ -9,7 +9,7 @@ import { MensajeInvitadoRegistrarse } from "../components/MensajeInvitadoRegistr
 import { UserContext } from "../context/UserContext";
 
 export const PersonPage = () => {
-  const { estaEnLinea } = useContext(UserContext);
+  const { estaEnLinea, usuarioEnLinea } = useContext(UserContext);
   const { productosPersona, setProductosPersona } =
     useContext(ProductosContext);
   const [openModalProduct, setOpenModalProduct] = useState(false);
@@ -156,6 +156,7 @@ export const PersonPage = () => {
               producto={producto}
               handleOpenModalRegistrarse={handleOpenModalRegistrarse}
               estaEnLinea={estaEnLinea}
+              usuarioEnLinea={usuarioEnLinea}
             />
           ))}
         </div>

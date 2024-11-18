@@ -54,3 +54,13 @@ export const formatearPrecioColombiano = (precio) => {
     minimumFractionDigits: 0,
   }).format(precio);
 };
+
+export const formatTime = (dateString) => {
+  const date = new Date(dateString);
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Convierte 0 en 12
+  const minutesFormatted = minutes.toString().padStart(2, "0"); // Asegura dos dígitos
+  return `${hours}:${minutesFormatted} ${ampm}`;
+};

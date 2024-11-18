@@ -42,11 +42,12 @@ export const ProductosProvider = ({ children }) => {
 
     const getProductosPorTipo = async () => {
       try {
+        const categorias = ["Venta", "Intercambio"];
         const response = await axios.get(
           `${apiUrlBackend}/productos/categoria`,
           {
             params: {
-              categoria: "Venta",
+              categorias: categorias.join(","),
             },
           }
         );

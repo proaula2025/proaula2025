@@ -68,11 +68,11 @@ export const NavbarUser = () => {
           dropdownVisible ? "opacity-100" : "opacity-0 pointer-events-none"
         } bg-white divide-y divide-gray-100 rounded-lg shadow w-44 absolute right-0 top-12`}
       >
-        <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+        <div className="px-4 py-3 text-sm text-gray-900">
           <div className="font-medium">{usuarioEnLinea.nombreCompleto}</div>
           <div className="truncate">{usuarioEnLinea.email}</div>
         </div>
-        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+        <ul className="py-2 text-sm text-gray-700">
           <li>
             <Link to="/inicio" className="block px-4 py-2 hover:bg-gray-100">
               Inicio

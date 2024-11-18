@@ -41,28 +41,32 @@ const CardProductFundacion = ({ producto, setProductos }) => {
 
   return (
     <>
-      <li className="py-3 p-4 border rounded-md">
-        <div className="flex items-center">
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 truncate">
-              {producto.nombreProducto}
-            </p>
-            <p className="text-sm text-gray-500 truncate">
-              Correo:{producto.empresaDono.email}
-            </p>
-            <p className="text-sm text-gray-500 truncate">
-              Categoria: {producto.categoria}
-            </p>
-            <p className="text-sm text-gray-500 truncate">
-              Fecha de entrega: {producto.fecha.split("T")[0]}
-            </p>
-            <p className="text-sm text-gray-500 truncate">
-              {producto.descripcion}
-            </p>
-          </div>
-          <div className="text-base font-semibold text-gray-900">
+      <li className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <img
+          className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+          src={producto.imageUrl}
+          alt={producto.nombreProducto}
+        />
+        <div className="flex flex-col justify-between p-4 leading-normal">
+          <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {producto.nombreProducto}
+          </h5>
+          <p className="font-normal text-gray-700 dark:text-gray-400">
+            Empresa: {producto.empresaDono.nombreCompleto}
+          </p>
+          <p className="font-normal text-gray-700 dark:text-gray-400">
+            Empresa correo: {producto.empresaDono.email}
+          </p>
+          <p className="font-normal text-gray-700 dark:text-gray-400">
+            Categoria: {producto.categoria}
+          </p>
+          <p className="font-normal text-gray-700 dark:text-gray-400">
+            {producto.fecha.split("T")[0]}
+          </p>
+
+          <div className="mt-2 text-base font-semibold text-gray-900">
             <button
-              className="text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+              className="w-full text-white bg-[#39c962] hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
               onClick={onRecogerProducto}
               style={
                 producto.fundacionRecogioProducto

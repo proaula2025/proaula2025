@@ -1,96 +1,24 @@
 import PropTypes from "prop-types";
-import axios from "axios";
 import InputText from "./InputText";
-import { apiUrlBackend } from "./../helpers/apiUrl";
 import { formatearPrecioColombiano } from "../helpers/productsHelpers";
-import { useContext, useState } from "react";
-import { UserContext } from "./../context/UserContext";
-import toast from "react-hot-toast";
-import { ProductosContext } from "./../context/ProductsContext";
+import { useDisableScroll, useVentaProduct } from "../hooks";
 
 const VentaProducto = ({ gestionVentaProducto, setOpenModalProducto }) => {
-  const { setProductosPersona } = useContext(ProductosContext);
-  const { usuarioEnLinea } = useContext(UserContext);
-  const [cantidadAComprar, setCantidadAComprar] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState(
-    "Por favor espere mientras validamos sus datos..."
-  );
+  useDisableScroll(true);
 
-  const onComprarProductoSeleccionado = async (e) => {
-    e.preventDefault();
-
-    if (cantidadAComprar <= 0) {
-      toast.error("La cantidad a comprar debe ser mayor a 0");
-      return;
-    }
-
-    if (cantidadAComprar > gestionVentaProducto.cantidad) {
-      toast.error(
-        "La cantidad a comprar no puede ser mayor a la cantidad total"
-      );
-      return;
-    }
-
-    setIsLoading(true);
-
-    setTimeout(
-      () => setLoadingMessage("Estamos validando su compra, ya casi..."),
-      3000
-    );
-
-    setTimeout(async () => {
-      try {
-        const response = await axios.post(apiUrlBackend + "/compraProducto", {
-          producto: {
-            idProducto: gestionVentaProducto.idProducto,
-          },
-          cantidadComprada: cantidadAComprar,
-          totalPrecio: gestionVentaProducto.precio * cantidadAComprar,
-          fechaCompra: new Date(),
-          usuarioCompro: {
-            idUsuario: usuarioEnLinea.idUsuario,
-          },
-          usuarioVendio: {
-            idUsuario: gestionVentaProducto.usuario.idUsuario,
-          },
-        });
-
-        if (response.data.esValido) {
-          const response = await axios.put(`${apiUrlBackend}/producto`, {
-            idProducto: gestionVentaProducto.idProducto,
-            cantidad: cantidadAComprar,
-          });
-
-          if (response.data.esValido) {
-            toast.success(response.data.mensaje);
-            setOpenModalProducto(false);
-
-            setProductosPersona((productos) =>
-              productos.map((producto) => {
-                if (
-                  producto.idProducto === response.data.productoDTO.idProducto
-                ) {
-                  return response.data.productoDTO;
-                }
-
-                return producto;
-              })
-            );
-          }
-        }
-      } catch (error) {
-        console.error(error);
-        toast.error("Hubo un problema en la compra.");
-      } finally {
-        setIsLoading(false);
-        setLoadingMessage("Por favor espere...");
-      }
-    }, 6000);
-  };
+  const {
+    cantidadAComprar,
+    isLoading,
+    loadingMessage,
+    onComprarProductoSeleccionado,
+    setCantidadAComprar,
+  } = useVentaProduct({
+    gestionVentaProducto,
+    setOpenModalProducto,
+  });
 
   return (
-    <div>
+    <>
       {isLoading && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="w-full max-w-sm p-6 mx-auto bg-white rounded-lg shadow-lg text-center flex items-center flex-col">
@@ -168,7 +96,7 @@ const VentaProducto = ({ gestionVentaProducto, setOpenModalProducto }) => {
           </form>
         </section>
       </div>
-    </div>
+    </>
   );
 };
 

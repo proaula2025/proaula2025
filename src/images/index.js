@@ -3,6 +3,7 @@ import productsTotal from "./productsTotal.svg";
 import backCompany from "./fondo.png";
 import userPhoto from "./userPhoto.png";
 import logoNav from "./logo_nav.png";
+import logo from "./logo.png";
 import imagenNav from "./imagen_logo.png";
 import marketplaceImagen from "./marketplaceImagen.svg";
 import recogiendo from "./recogiendo.gif";
@@ -32,4 +33,5 @@ export {
   fondo5,
   fondo6,
   fondo7,
+  logo,
 };
