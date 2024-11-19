@@ -3,7 +3,7 @@ import { categoryProducts, stateProducts } from "../helpers/productsHelpers";
 import InputText from "./InputText";
 import { PropTypes } from "prop-types";
 import { backCompany } from "../images";
-import { useModalProduct } from "../hooks";
+import { useDisableScroll, useModalProduct } from "../hooks";
 
 const ModalProduct = ({
   isOpen,
@@ -12,6 +12,7 @@ const ModalProduct = ({
   tipoDeProducto = "Donación",
   mensajeGuardado,
 }) => {
+  useDisableScroll(true);
   const {
     cargandoGuardado,
     formState,

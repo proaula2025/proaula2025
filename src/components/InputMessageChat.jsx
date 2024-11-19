@@ -10,8 +10,6 @@ export const InputMessageChat = ({
 }) => {
   const [mensaje, setMensaje] = useState("");
 
-  console.log(selectedChat);
-
   const onSendMessage = async (e) => {
     e.preventDefault();
 

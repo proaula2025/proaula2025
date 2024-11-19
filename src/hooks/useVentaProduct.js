@@ -4,6 +4,7 @@ import { apiUrlBackend } from "../helpers/apiUrl";
 import axios from "axios";
 import { ProductosContext } from "../context/ProductsContext";
 import { UserContext } from "../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export const useVentaProduct = ({
   gestionVentaProducto,
@@ -13,11 +14,11 @@ export const useVentaProduct = ({
   const { usuarioEnLinea, setUsuarioEnLinea } = useContext(UserContext);
   const [cantidadAComprar, setCantidadAComprar] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const [loadingMessage, setLoadingMessage] = useState(
     "Por favor espere mientras validamos sus datos..."
   );
 
-  // Función genérica para manejar solicitudes HTTP
   const makeRequest = async (method, url, data) => {
     try {
       const response = await axios({ method, url, data });
@@ -101,6 +102,7 @@ export const useVentaProduct = ({
       await Promise.all([
         actualizarUsuario("comprador"),
         actualizarUsuario("vendedor"),
+        onEnviarMensajeDespuesDeCompra(),
       ]);
     } catch (error) {
       console.error("Error al actualizar el producto:", error);
@@ -132,6 +134,33 @@ export const useVentaProduct = ({
       toast.success(`Datos del ${tipo} actualizados correctamente`);
     } catch (error) {
       console.error(`Error al actualizar datos del ${tipo}:`, error);
+    }
+  };
+
+  const onEnviarMensajeDespuesDeCompra = async () => {
+    try {
+      const response = await axios.post(
+        `${apiUrlBackend}/chat/crear?idUsuario=${usuarioEnLinea.idUsuario}&idUsuarioOtro=${gestionVentaProducto.usuario.idUsuario}`
+      );
+
+      if (response.data.esValido) {
+        const responseIntercambio = await axios.post(
+          `${apiUrlBackend}/chat/mensaje/${response.data.chatDTO.idChat}/${usuarioEnLinea.idUsuario}`,
+          {
+            texto: `Hola, he comprado tu producto ${
+              gestionVentaProducto.nombreProducto
+            } por un total de ${
+              gestionVentaProducto.precio * cantidadAComprar
+            } pesos.`,
+          }
+        );
+
+        if (responseIntercambio.data.esValido) {
+          navigate(`/chats-intercambio`);
+        }
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
