@@ -65,7 +65,10 @@ const FoundationPage = () => {
             </h5>
           </div>
           <div className="flow-root">
-            <ul role="list" className="divide-y divide-gray-200">
+            <ul
+              role="list"
+              className="divide-y divide-gray-200 grid grid-cols-3"
+            >
               {productos.map((producto) => (
                 <CardProductFundacion
                   key={producto.idProducto}

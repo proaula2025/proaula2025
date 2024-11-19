@@ -1,9 +1,16 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
+import { apiUrlBackend } from "./../helpers/apiUrl";
+import toast from "react-hot-toast";
+import { UserContext } from "./../context/UserContext";
+import { PropTypes } from "prop-types";
 
-export const RatingApp = () => {
+export const RatingApp = ({ setListaComentarios }) => {
+  const { usuarioEnLinea } = useContext(UserContext);
   const [openReview, setOpenReview] = useState(false);
   const [rating, setRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const [comentario, setComentario] = useState("");
 
   const handleOpenReview = () => {
     setOpenReview(!openReview);
@@ -19,6 +26,38 @@ export const RatingApp = () => {
 
   const handleMouseLeave = () => {
     setHoverRating(0);
+  };
+
+  const onAgregarReview = async () => {
+    if (comentario.trim().length <= 5) {
+      toast.error("El comentario debe tener al menos 5 caracteres");
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${apiUrlBackend}/comentario`, {
+        valoracion: rating,
+        comentario,
+        usuario: {
+          idUsuario: usuarioEnLinea.idUsuario,
+        },
+      });
+
+      if (response.data.esValido) {
+        toast.success("Gracias por tu comentario");
+        setOpenReview(false);
+        setRating(0);
+        setHoverRating(0);
+        setComentario("");
+
+        setListaComentarios((prevListaComentarios) => [
+          ...prevListaComentarios,
+          response.data.comentarioDTO,
+        ]);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -92,22 +131,16 @@ export const RatingApp = () => {
             <div className="px-4 py-2 space-y-1 bg-white rounded-t-lg">
               <label
                 htmlFor="comment"
-                className="
-                block
-                mb-2
-                text-base
-                font-medium
-                text-gray-900
-              "
+                className="block mb-2 text-base font-medium text-gray-900"
               >
                 Mensaje
               </label>
               <textarea
                 id="comment"
-                rows="4"
                 className="w-full resize-none h-40 p-3 rounded-lg text-base text-gray-900 bg-white border"
                 placeholder="Escribe un mensaje..."
-                required
+                value={comentario}
+                onChange={(e) => setComentario(e.target.value)}
               ></textarea>
             </div>
           </div>
@@ -122,13 +155,17 @@ export const RatingApp = () => {
             <button
               className="rounded-md bg-green-500 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2"
               type="button"
-              onClick={handleOpenReview}
+              onClick={onAgregarReview}
             >
-              Confirm
+              Enviar
             </button>
           </div>
         </div>
       </div>
     </>
   );
+};
+
+RatingApp.propTypes = {
+  setListaComentarios: PropTypes.func.isRequired,
 };

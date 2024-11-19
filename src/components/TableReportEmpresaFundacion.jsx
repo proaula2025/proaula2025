@@ -1,8 +1,10 @@
 import { userPhoto } from "../images";
 import { PropTypes } from "prop-types";
-import { formatearPrecioColombiano } from "./../helpers/productsHelpers";
 
-const TableReports = ({ registroProductos }) => {
+const TableReportEmpresaFundacion = ({
+  registroProductos,
+  usuarioEncontradoPerfil,
+}) => {
   return (
     <table className="w-full text-sm text-left rtl:text-right text-gray-500">
       <thead className="text-sm text-gray-700 bg-[#ffffff80] border-b">
@@ -11,19 +13,18 @@ const TableReports = ({ registroProductos }) => {
             Producto que compro
           </th>
           <th scope="col" className="px-6 py-3">
-            Quien lo vendio
+            {usuarioEncontradoPerfil.tipoEntidad === "Empresa"
+              ? "Se lo done a"
+              : "Me lo dono"}
           </th>
           <th scope="col" className="px-6 py-3">
             Contacto
           </th>
           <th scope="col" className="px-6 py-3">
-            Fecha de compra
+            Fecha donación
           </th>
           <th scope="col" className="px-6 py-3">
             Cantidad de productos
-          </th>
-          <th scope="col" className="px-6 py-3">
-            Total de la compra
           </th>
         </tr>
       </thead>
@@ -31,7 +32,7 @@ const TableReports = ({ registroProductos }) => {
         {registroProductos.map((producto) => (
           <tr
             className="bg-[#ffffff47] border-b hover:bg-[#ffffff80]"
-            key={producto.idCompra}
+            key={producto.idProducto}
           >
             <th
               scope="row"
@@ -39,28 +40,35 @@ const TableReports = ({ registroProductos }) => {
             >
               <img
                 className="w-10 h-10 rounded-full"
-                src={userPhoto}
-                alt="Jese image"
+                src={producto.imageUrl || userPhoto}
+                alt={producto.nombreProducto}
               />
               <div className="ps-3">
                 <div className="text-base font-semibold">
-                  {producto.producto.nombreProducto}
-                </div>
-                <div className="font-normal text-gray-500">
-                  {formatearPrecioColombiano(producto.producto.precio)} pesos
+                  {producto.nombreProducto}
                 </div>
               </div>
             </th>
             <td className="px-6 py-4">
-              {producto.usuarioVendio.nombreCompleto}
+              {
+                producto[
+                  usuarioEncontradoPerfil.tipoEntidad === "Empresa"
+                    ? "usuario"
+                    : "empresaDono"
+                ].nombreCompleto
+              }
             </td>
-            <td className="px-6 py-4">{producto.usuarioVendio.telefono}</td>
-
-            <td className="px-6 py-4">{producto.fechaCompra.split("T")[0]}</td>
-            <td className="px-6 py-4">{producto.cantidadComprada} producto</td>
             <td className="px-6 py-4">
-              {formatearPrecioColombiano(producto.totalPrecio)} pesos
+              {
+                producto[
+                  usuarioEncontradoPerfil.tipoEntidad === "Empresa"
+                    ? "usuario"
+                    : "empresaDono"
+                ].telefono
+              }
             </td>
+            <td className="px-6 py-4">{producto.fecha.split("T")[0]}</td>
+            <td className="px-6 py-4">1 producto</td>
           </tr>
         ))}
       </tbody>
@@ -68,8 +76,9 @@ const TableReports = ({ registroProductos }) => {
   );
 };
 
-TableReports.propTypes = {
+TableReportEmpresaFundacion.propTypes = {
   registroProductos: PropTypes.array.isRequired,
+  usuarioEncontradoPerfil: PropTypes.object.isRequired,
 };
 
-export default TableReports;
+export default TableReportEmpresaFundacion;

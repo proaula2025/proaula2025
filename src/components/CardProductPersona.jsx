@@ -58,22 +58,24 @@ const CardProductPersona = ({
               {formatearPrecioColombiano(producto.precio)} pesos
             </span>
 
-            {usuarioEnLinea.idUsuario !== producto.usuario.idUsuario && (
-              <button
-                className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                onClick={onComprarProducto}
-                style={{
-                  backgroundColor: producto.cantidad === 0 ? "#ccc" : "",
-                  cursor: producto.cantidad === 0 ? "not-allowed" : "pointer",
-                }}
-              >
-                {producto.cantidad !== 0
-                  ? producto.tipoProducto === "Venta"
-                    ? "Comprar"
-                    : "Intercambiar"
-                  : "¡Agotado!"}
-              </button>
-            )}
+            {usuarioEnLinea.idUsuario !== producto.usuario.idUsuario &&
+              usuarioEnLinea.tipoEntidad !== "Empresa" &&
+              usuarioEnLinea.tipoEntidad !== "Fundacion" && (
+                <button
+                  className="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                  onClick={onComprarProducto}
+                  style={{
+                    backgroundColor: producto.cantidad === 0 ? "#ccc" : "",
+                    cursor: producto.cantidad === 0 ? "not-allowed" : "pointer",
+                  }}
+                >
+                  {producto.cantidad !== 0
+                    ? producto.tipoProducto === "Venta"
+                      ? "Comprar"
+                      : "Intercambiar"
+                    : "¡Agotado!"}
+                </button>
+              )}
           </div>
         </div>
       </div>

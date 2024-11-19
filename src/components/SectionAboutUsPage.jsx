@@ -23,13 +23,12 @@ export const SectionAboutUsPage = () => {
         </div>
 
         <p className="text-gray-600 text-lg w-[90%] text-justify">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae
-          placeat nesciunt quos voluptatem quia recusandae qui consectetur
-          officiis hic, rem minima, animi consequuntur aliquid asperiores autem?
-          Repellat illo esse minima! Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Voluptates, quos. Quisquam, quod. Quisquam, quod.
-          Quisquam, quod. Quisquam, quod. Quisquam, quod. Quisquam, quod.
-          Quisquam.
+          Reciclar es clave para reducir residuos, conservar recursos naturales
+          y combatir el cambio climático. La economía circular prolonga la vida
+          útil de materiales, minimizando desechos y promoviendo un consumo
+          sostenible. Donar o intercambiar productos evita el desperdicio,
+          fomenta la reutilización y fortalece comunidades, reduciendo la
+          demanda de nuevos recursos y la huella ambiental.
         </p>
       </div>
 
@@ -39,15 +38,18 @@ export const SectionAboutUsPage = () => {
 
           <div className="absolute bottom-0 p-4">
             <h3 className="text-white text-2xl font-semibold">
-              ¿Por qué elegirnos?
+              ¿Por qué es importante reciclar?
             </h3>
             <p
               className="text-gray-200 text-base"
               style={{ textShadow: "1px 1px 1px #000" }}
             >
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Voluptates, quos. Quisquam, quod. Quisquam, quod. Quisquam, quod.
-              Quisquam, quod. Quisquam, quod. Quisquam, quod. Quisquam.
+              Reciclar reduce el impacto ambiental al disminuir la cantidad de
+              residuos que terminan en vertederos y océanos. Ayuda a conservar
+              recursos naturales, como madera, agua y minerales, y reduce la
+              necesidad de extraer materias primas. Además, el reciclaje
+              disminuye las emisiones de gases de efecto invernadero,
+              contribuyendo a combatir el cambio climático.
             </p>
           </div>
         </div>
@@ -61,15 +63,16 @@ export const SectionAboutUsPage = () => {
             />
             <div className="absolute bottom-0 p-4">
               <h3 className="text-white text-2xl font-semibold">
-                ¿Por qué elegirnos?
+                ¿Qué es la economía circular y por qué es esencial?
               </h3>
               <p
-                className="text-gray-200 text-base"
+                className="text-white text-base"
                 style={{ textShadow: "1px 1px 1px #000" }}
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptates, quos Quisquam, quod. Quisquam, quod. Quisquam, quod.
-                Quisquam, quod. Quisquam, quod. Quisquam, quod. Quisquam.
+                La economía circular es un modelo que busca mantener los
+                recursos en uso durante el mayor tiempo posible, extrayendo su
+                máximo valor. Se enfoca en reparar, reutilizar y reciclar en
+                lugar de desechar.
               </p>
             </div>
           </div>
@@ -81,15 +84,16 @@ export const SectionAboutUsPage = () => {
             />
             <div className="absolute bottom-0 p-4">
               <h3 className="text-white text-2xl font-semibold">
-                ¿Por qué elegirnos?
+                ¿Qué beneficios tiene donar o intercambiar productos?
               </h3>
               <p
                 className="text-gray-200 text-base"
                 style={{ textShadow: "1px 1px 1px #000" }}
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptates, quos Quisquam, quod. Quisquam, quod. Quisquam, quod.
-                Quisquam, quod. Quisquam, quod. Quisquam, quod. Quisquam.
+                Donar o intercambiar productos fomenta la reutilización,
+                evitando que objetos útiles se conviertan en residuos. Permite
+                que otros puedan aprovechar lo que ya no usamos, reduciendo la
+                demanda de nuevos recursos.
               </p>
             </div>
           </div>
@@ -104,9 +108,13 @@ export const SectionAboutUsPage = () => {
             />
             <figcaption className="absolute px-4 text-lg text-white bottom-6">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptates, quos. Quisquam, quod. Quisquam, quod. Quisquam,
-                quod. Quisquam, quod. Quisquam, quod. Quisquam.
+                Reciclar es clave para reducir residuos, conservar recursos
+                naturales y combatir el cambio climático. La economía circular
+                prolonga la vida útil de materiales, minimizando desechos y
+                promoviendo un consumo sostenible. Donar o intercambiar
+                productos evita el desperdicio, fomenta la reutilización y
+                fortalece comunidades, reduciendo la demanda de nuevos recursos
+                y la huella ambiental.
               </p>
             </figcaption>
           </figure>

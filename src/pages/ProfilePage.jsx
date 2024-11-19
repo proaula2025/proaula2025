@@ -6,12 +6,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { apiUrlBackend } from "../helpers/apiUrl";
 import TableReports from "../components/TableReports";
+import TableReportEmpresaFundacion from "./../components/TableReportEmpresaFundacion";
 
 const ProfilePage = () => {
   const { estaEnLinea } = useContext(UserContext);
   const { idUsuario, nombreUsuario } = useParams();
   const [usuarioEncontradoPerfil, setUsuarioEncontradoPerfil] = useState({});
   const [productosComprados, setProductosComprados] = useState([]);
+  const [productosDonados, setProductosDonados] = useState([]);
 
   useEffect(() => {
     if (!estaEnLinea) {
@@ -34,30 +36,37 @@ const ProfilePage = () => {
   }, [idUsuario, nombreUsuario, estaEnLinea]);
 
   useEffect(() => {
-    const getProductosComprados = async () => {
+    const getProductosRelacionados = async () => {
       if (!estaEnLinea) {
         return;
       }
 
       try {
-        const apiCompleta =
-          usuarioEncontradoPerfil.tipoEntidad === "Administrador"
-            ? apiUrlBackend + "/compraProductos"
-            : `${apiUrlBackend}/usuario/${idUsuario}`;
+        let response;
 
-        const response = await axios.get(apiCompleta);
+        if (usuarioEncontradoPerfil.tipoEntidad === "Administrador") {
+          response = await axios.get(apiUrlBackend + "/compraProductos");
+          setProductosComprados(response.data.listaCompraProductos || []);
+        } else if (
+          usuarioEncontradoPerfil.tipoEntidad === "Fundacion" ||
+          usuarioEncontradoPerfil.tipoEntidad === "Empresa"
+        ) {
+          response = await axios.get(
+            `${apiUrlBackend}/productos/usuario/${idUsuario}`
+          );
 
-        if (!response.data.esValido) {
-          return;
+          setProductosDonados(response.data.listaproductos || []);
+        } else {
+          response = await axios.get(`${apiUrlBackend}/usuario/${idUsuario}`);
+
+          setProductosComprados(response.data.listaCompraProductos || []);
         }
-
-        setProductosComprados(response.data.listaCompraProductos);
       } catch (error) {
         console.error("error", error);
       }
     };
 
-    getProductosComprados();
+    getProductosRelacionados();
   }, [idUsuario, usuarioEncontradoPerfil.tipoEntidad, estaEnLinea]);
 
   return (
@@ -86,7 +95,7 @@ const ProfilePage = () => {
             </figcaption>
           </figure>
 
-          <div className="grid grid-cols-3 gap-4 pt-10">
+          <div className="grid grid-cols-4 gap-4 pt-10">
             <div className="w-full border-2 bg-[#ffffff47] border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
               <div className="flex justify-between">
                 <h2 className="text-lg font-semibold">
@@ -102,6 +111,40 @@ const ProfilePage = () => {
                 {usuarioEncontradoPerfil?.productosComprados || 0}
               </p>
             </div>
+            {usuarioEncontradoPerfil.tipoEntidad === "Fundacion" && (
+              <div className="w-full border-2 bg-[#ffffff47] border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
+                <div className="flex justify-between">
+                  <h2 className="text-lg font-semibold">
+                    Total de productos donados recibidos
+                  </h2>
+                  <img
+                    className="w-8"
+                    src={productsTotal}
+                    alt="Productos totales"
+                  />
+                </div>
+                <p className="text-4xl font-bold">
+                  {usuarioEncontradoPerfil?.productosRecibidosFundacion || 0}
+                </p>
+              </div>
+            )}
+            {usuarioEncontradoPerfil.tipoEntidad === "Empresa" && (
+              <div className="w-full border-2 bg-[#ffffff47] border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
+                <div className="flex justify-between">
+                  <h2 className="text-lg font-semibold">
+                    Total de productos donados
+                  </h2>
+                  <img
+                    className="w-8"
+                    src={productsTotal}
+                    alt="Productos totales"
+                  />
+                </div>
+                <p className="text-4xl font-bold">
+                  {usuarioEncontradoPerfil?.productosDonadosEmpresa || 0}
+                </p>
+              </div>
+            )}
             <div className="w-full border-2 bg-[#ffffff47] border-stone-100 p-4 rounded-lg grid gap-4 cursor-pointer hover:transform hover:scale-95 duration-200">
               <div className="flex justify-between">
                 <h2 className="text-lg font-semibold">
@@ -135,7 +178,15 @@ const ProfilePage = () => {
           </div>
 
           <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-10">
-            <TableReports registroProductos={productosComprados} />
+            {usuarioEncontradoPerfil.tipoEntidad === "Administrador" ||
+              (usuarioEncontradoPerfil.tipoEntidad === "Persona natural" ? (
+                <TableReports registroProductos={productosComprados} />
+              ) : (
+                <TableReportEmpresaFundacion
+                  registroProductos={productosDonados}
+                  usuarioEncontradoPerfil={usuarioEncontradoPerfil}
+                />
+              ))}
           </div>
         </div>
       </section>

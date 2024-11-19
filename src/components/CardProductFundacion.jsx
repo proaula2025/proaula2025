@@ -1,43 +1,12 @@
-import axios from "axios";
 import { PropTypes } from "prop-types";
-import { apiUrlBackend } from "../helpers/apiUrl";
-import { useState } from "react";
 import { recogiendo1 } from "../images";
-import toast from "react-hot-toast";
+import { useCardProductFundacion } from "../hooks";
 
 const CardProductFundacion = ({ producto, setProductos }) => {
-  const [recogiendoProducto, setRecogiendoProducto] = useState(false);
-
-  const onRecogerProducto = async () => {
-    setRecogiendoProducto(true);
-
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
-    try {
-      const response = await axios.put(`${apiUrlBackend}/producto`, {
-        idProducto: producto.idProducto,
-        fundacionRecogioProducto: true,
-      });
-
-      if (response.data.esValido) {
-        toast.success(response.data.mensaje);
-
-        setProductos((productos) =>
-          productos.map((producto) => {
-            if (producto.idProducto === response.data.productoDTO.idProducto) {
-              return response.data.productoDTO;
-            }
-
-            return producto;
-          })
-        );
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setRecogiendoProducto(false);
-    }
-  };
+  const { onRecogerProducto, recogiendoProducto } = useCardProductFundacion({
+    producto,
+    setProductos,
+  });
 
   return (
     <>
